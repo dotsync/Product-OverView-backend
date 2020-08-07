@@ -21,11 +21,6 @@ module.exports = {
             '@babel/preset-env',
           ],
         },
-        resolve: {
-          alias: {
-            "@material-ui/core/AppBar": path.resolve("node_modules", "@material-ui/core"),
-          }
-        }
       },
     ],
   },
