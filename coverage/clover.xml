@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1596824239999" clover="3.2.0">
-  <project timestamp="1596824240000" name="All files">
-    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
-    <file name="App.jsx" path="/Users/dreamer/Documents/hr/ghrbld11/product-overview/src/components/App.jsx">
+<coverage generated="1596835245559" clover="3.2.0">
+  <project timestamp="1596835245559" name="All files">
+    <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3" elements="8" coveredelements="8" complexity="0" loc="5" ncloc="5" packages="1" files="2" classes="2"/>
+    <file name="Header.jsx" path="/Users/dreamer/Documents/hr/ghrbld11/product-overview/src/components/Header.jsx">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="64" count="1" type="stmt"/>
+    </file>
+    <file name="app.jsx" path="/Users/dreamer/Documents/hr/ghrbld11/product-overview/src/components/app.jsx">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <line num="3" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
