@@ -1,98 +1,60 @@
-// import React from 'react';
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import InputBase from '@material-ui/core/InputBase';
-// import { fade, makeStyles } from '@material-ui/core/styles';
-// import SearchIcon from '@material-ui/icons/Search';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   title: {
-//     flexGrow: 1,
-//     display: 'none',
-//     [theme.breakpoints.up('sm')]: {
-//       display: 'block',
-//     },
-//   },
-//   search: {
-//     position: 'relative',
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: fade(theme.palette.common.white, 0.15),
-//     '&:hover': {
-//       backgroundColor: fade(theme.palette.common.white, 0.25),
-//     },
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       marginLeft: theme.spacing(1),
-//       width: 'auto',
-//     },
-//   },
-//   searchIcon: {
-//     padding: theme.spacing(0, 2),
-//     height: '100%',
-//     position: 'absolute',
-//     pointerEvents: 'none',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   inputRoot: {
-//     color: 'inherit',
-//   },
-//   inputInput: {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-//     transition: theme.transitions.create('width'),
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       width: '12ch',
-//       '&:focus': {
-//         width: '20ch',
-//       },
-//     },
-//   },
-// }));
-
-// export default function Header() {
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.root}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Typography className={classes.title} id="title" variant="h6" noWrap>
-//             IO Silver
-//           </Typography>
-//           <div className={classes.search}>
-//             <div className={classes.searchIcon}>
-//               <SearchIcon />
-//             </div>
-//             <InputBase
-//               placeholder="Search…"
-//               classes={{
-//                 root: classes.inputRoot,
-//                 input: classes.inputInput,
-//               }}
-//               inputProps={{ 'aria-label': 'search' }}
-//             />
-//           </div>
-//         </Toolbar>
-//       </AppBar>
-//     </div>
-//   );
-// }
-
 import React from 'react';
+import Appbar from '@material-ui/core/Appbar';
+import Typography from '@material-ui/core/Typography';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core';
 
-const Header = () => (
-  <div>
-    <h1>this is the header</h1>
-  </div>
-);
+const useStyles = makeStyles((theme) => ({
+  root: {
 
-export default Header;
+  },
+  AppBar: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: "75px",
+  },
+  title: {
+    marginLeft: "20px",
+    marginTop: "20px"
+  },
+  search: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginRight: "20px"
+  },
+  searchIcon: {
+    alignSelf: "center",
+  },
+  searchText: {
+    alignSelf: "center",
+    marginBottom: "5px",
+    underline: "white",
+  }
+}));
+
+export default function Header () {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Appbar className={classes.AppBar}>
+        <Typography
+          id="title"
+          className={classes.title}
+          variant="h6"
+          noWrap>IO Silver</Typography>
+        <div className={classes.search}>
+          <div className={classes.searchText}>
+            <TextField />
+          </div>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+        </div>
+      </Appbar>
+    </div>
+  )
+}
