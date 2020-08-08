@@ -1,60 +1,49 @@
 import React from 'react';
-import Appbar from '@material-ui/core/Appbar';
-import Typography from '@material-ui/core/Typography';
+import  {
+  Typography,
+  makeStyles,
+  TextField} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-
-  },
-  AppBar: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
     height: "75px",
+    backgroundColor: "lightGreen",
+    justifyContent: "space-between",
+    paddingLeft: "20px",
+    paddingRight: "20px"
   },
   title: {
-    marginLeft: "20px",
-    marginTop: "20px"
+    alignSelf: "center",
   },
   search: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginRight: "20px"
-  },
-  searchIcon: {
-    alignSelf: "center",
   },
   searchText: {
-    alignSelf: "center",
-    marginBottom: "5px",
-    underline: "white",
+    alignSelf: "center"
+  },
+  searchIcon: {
+    alignSelf: "center"
   }
 }));
 
-export default function Header () {
+const Header = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Appbar className={classes.AppBar}>
-        <Typography
-          id="title"
-          className={classes.title}
-          variant="h6"
-          noWrap>IO Silver</Typography>
+      <div className={classes.root}>
+        <Typography id="title" className={classes.title}>IO Silver</Typography>
         <div className={classes.search}>
           <div className={classes.searchText}>
-            <TextField />
+           <TextField />
           </div>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
         </div>
-      </Appbar>
-    </div>
-  )
+      </div>
+  );
 }
+
+export default Header;
