@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import randomColor from 'randomcolor';
@@ -19,11 +19,19 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: '0px',
     padding: '0px',
-  }
+  },
+  details: {
+    marginLeft: '20px'
+  },
+  reviews: {
+    marginTop: "10px",
+    marginBottom: "10px"
+  },
 }));
 
 const App = () => {
   const classes = useStyles();
+  const [productId, setProductId] = useState(1);
 
   return (
     <Grid container className={classes.grid}>
@@ -36,9 +44,9 @@ const App = () => {
       <Grid item xs={7} style={{background:randomColor()}}>
         <Images />
       </Grid>
-      <Grid container item xs={5} style={{background:randomColor()}}>
-        <Grid item xs={12} style={{background:randomColor()}}>
-          <Reviews />
+      <Grid container className={classes.details} item xs={4}>
+        <Grid item xs={12} className={classes.reviews}>
+          <Reviews productId={productId}/>
         </Grid>
         <Grid item xs={12} style={{background:randomColor()}}>
           <Name />
