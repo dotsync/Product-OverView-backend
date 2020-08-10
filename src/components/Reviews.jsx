@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Rating from '@material-ui/lab/Rating';
-import axios from 'axios';
 
 const Reviews = (props) => {
-  const [ratings, setRatings] = useState({});
-
-  useEffect(() => {
-    axios.get(`http://52.26.193.201:3000/reviews/${props.productId}/meta`)
-    .then((response) => {setRatings(response.data.ratings)});
-  }, [])
 
   function objectValueSum(obj) {
     return Object.keys(obj).reduce((sum, key) => sum + parseFloat(obj[key] || 0), 0);
@@ -24,18 +17,24 @@ const Reviews = (props) => {
     return total;
   }
 
-  let averageRating = totalStarsSum(ratings) / objectValueSum(ratings);
+  let averageRating;
+  if (!props.ratings) {
+    averageRating = "no average rating available"
+  } else {
+    averageRating = totalStarsSum(props.ratings) / objectValueSum(props.ratings)
+  }
 
   return (
     <div id="reviews">
-      <Rating
-        name="read-only"
-        id="rating-component"
-        value={averageRating}
-        readOnly
-        precision={0.25}
-        size="small"
-      />
+      {props.ratings ?
+        <Rating
+          name="read-only"
+          id="rating-component"
+          value={averageRating}
+          readOnly
+          precision={0.25}
+          size="small"
+        /> : <span id="rating-component">"no ratings right now"</span>}
     </div>
   );
 }
