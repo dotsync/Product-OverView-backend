@@ -7,7 +7,7 @@ import Header from '../src/components/Header';
 configure ({ adapter: new Adapter()});
 
 describe('<Header />', () => {
-  it('should containt the text "IO Silver"', () => {
+  it('should contain the text "IO Silver"', () => {
     const wrapper = shallow(<Header />);
     expect(wrapper.find('#title').text()).toBe("IO Silver")
   });

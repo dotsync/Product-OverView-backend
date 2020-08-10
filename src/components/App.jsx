@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import randomColor from 'randomcolor';
@@ -12,6 +12,7 @@ import AddToBag from './AddToBag.jsx';
 import Share from './Share.jsx';
 import Description from './Description.jsx';
 import Details from './Details.jsx';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,20 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const [productId, setProductId] = useState(1);
+  const [currentProduct, setCurrentProduct] = useState(null);
+  const [ratings, setRatings] = useState(null);
+
+  useEffect(() => {
+    Promise.all([
+      axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
+      axios.get(`http://52.26.193.201:3000/products/${productId}`)
+  ])
+    .then(([resReviews, resProduct]) => {
+      setRatings(resReviews.data.ratings)
+      setCurrentProduct(resProduct.data)
+    })
+    .catch((err) => {console.log("axios get error: ", err)});
+  }, [])
 
   return (
     <Grid container className={classes.grid}>
@@ -46,10 +61,10 @@ const App = () => {
       </Grid>
       <Grid container className={classes.details} item xs={4}>
         <Grid item xs={12} className={classes.reviews}>
-          <Reviews productId={productId}/>
+          <Reviews productId={productId} ratings={ratings}/>
         </Grid>
-        <Grid item xs={12} style={{background:randomColor()}}>
-          <Name />
+        <Grid item xs={12}>
+          <Name currentProduct={currentProduct}/>
         </Grid>
         <Grid item xs={12} style={{background:randomColor()}}>
           <StyleSelector />

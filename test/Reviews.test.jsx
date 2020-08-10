@@ -1,7 +1,7 @@
 import React from 'react';
 import Reviews from '../src/components/Reviews';
 
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
@@ -26,11 +26,11 @@ describe('Displaying metadata', () => {
       5: 1
     }
 
-    wrapper = mount(<Reviews />);
+    wrapper = shallow(<Reviews />);
   });
 
   test('Should render a ratings component', () => {
-    expect(wrapper.exists('#rating-component')).toBe(true);
+    expect(wrapper.find('#rating-component')).toBeDefined();
   });
 
   // test('Should calculate rating', () => {
