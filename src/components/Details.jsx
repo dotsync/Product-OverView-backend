@@ -1,9 +1,26 @@
 import React from 'react';
 
-const Details = () => {
+const Details = (props) => {
+
+  let featureListItems;
+  if (props.currentProduct) {
+    const details = props.currentProduct.features;
+    featureListItems = details.map((feature) => {
+      if (feature.value === "null") {
+        return <div key={feature.feature}>{feature.feature}</div>
+      }
+      return <div key={feature.feature}>{feature.feature} -- {feature.value}</div>
+    })
+  }
+
   return (
-    <div>
-      <h4>Details component</h4>
+    <div id="features">
+      {props.currentProduct ?
+        <div>
+          {featureListItems}
+        </div>
+        : <span>no current features</span>
+      }
     </div>
   );
 }

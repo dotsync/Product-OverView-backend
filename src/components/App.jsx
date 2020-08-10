@@ -28,11 +28,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
     marginBottom: "10px"
   },
+  description: {
+    marginLeft: "50px",
+    marginTop: "20px"
+  }
 }));
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(1);
+  const [productId, setProductId] = useState(114);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
 
@@ -76,12 +80,14 @@ const App = () => {
           <Share />
         </Grid>
       </Grid>
-      <Grid container item xs={12} style={{background:randomColor()}}>
-        <Grid item xs={7} style={{background:randomColor()}}>
-          <Description />
+      <Grid container item xs={12}>
+        <Grid item xs={7}>
+          <div className={classes.description}>
+            <Description currentProduct={currentProduct} />
+          </div>
         </Grid>
         <Grid item xs={5} style={{background:randomColor()}}>
-          <Details />
+          <Details currentProduct={currentProduct}/>
         </Grid>
       </Grid>
     </Grid>
