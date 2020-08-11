@@ -5,8 +5,7 @@ import CheckIcon from '@material-ui/icons/Check';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "20px",
-    display: "flex",
-    height: "75%"
+    display: "flex"
   },
   features: {
     borderLeft: '2px solid black',
@@ -27,9 +26,9 @@ const Details = (props) => {
   let featureListItems;
   if (props.currentProduct) {
     const details = props.currentProduct.features;
-    featureListItems = details.map((feature) => {
+    featureListItems = details.map((feature, index) => {
       if (feature.value === "null") {
-        return <Grid container key={feature.feature} className={classes.featureContainer}>
+        return <Grid container key={feature.feature} id={index} className={classes.featureContainer}>
                 <Grid item className={classes.check}>
                   <CheckIcon />
                 </Grid>
@@ -52,9 +51,9 @@ const Details = (props) => {
   }
 
   return (
-    <div id="features" className={classes.root}>
+    <div className={classes.root}>
       {props.currentProduct ?
-        <div className={classes.features}>
+        <div id="features" className={classes.features}>
           {featureListItems}
         </div>
         : <span>no current features</span>
