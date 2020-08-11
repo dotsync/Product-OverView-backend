@@ -1,10 +1,39 @@
 import React from 'react';
+import {Typography, Grid, makeStyles} from '@material-ui/core';
 
-const Description = () => {
+const useStyles = makeStyles ((theme) => ({
+  slogan: {
+    fontWeight: "bold",
+    fontSize: "small",
+    marginBottom: "10px"
+  },
+  description: {
+    fontSize: "small",
+  }
+}));
+
+const Description = (props) => {
+  const classes = useStyles();
+
   return (
-    <div>
-      <h4>Description component</h4>
-    </div>
+    <Grid container className={classes.container}>
+      <Grid item id="slogan">
+        {props.currentProduct ?
+          <Typography className={classes.slogan}>
+            {props.currentProduct.slogan}
+          </Typography>
+          : <span>no current slogan</span>
+        }
+      </Grid>
+      <Grid item id="description">
+        {props.currentProduct ?
+          <Typography className={classes.description}>
+            {props.currentProduct.description}
+          </Typography>
+          : <span>no current description</span>
+        }
+      </Grid>
+    </Grid>
   );
 }
 

@@ -34,7 +34,7 @@ const Reviews = (props) => {
           readOnly
           precision={0.25}
           size="small"
-        /> : <span id="rating-component">"no ratings right now"</span>}
+        /> : <span id="rating-component">no ratings right now</span>}
     </div>
   );
 }
