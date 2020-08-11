@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(114);
+  const [productId, setProductId] = useState(2);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
 
@@ -86,7 +86,7 @@ const App = () => {
             <Description currentProduct={currentProduct} />
           </div>
         </Grid>
-        <Grid item xs={5} style={{background:randomColor()}}>
+        <Grid item xs={5}>
           <Details currentProduct={currentProduct}/>
         </Grid>
       </Grid>
