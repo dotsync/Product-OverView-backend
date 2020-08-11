@@ -17,7 +17,7 @@ const Description = (props) => {
 
   return (
     <Grid container className={classes.container}>
-      <Grid item id="slogan">
+      <Grid item id="slogan" xs={12}>
         {props.currentProduct ?
           <Typography className={classes.slogan}>
             {props.currentProduct.slogan}
@@ -25,7 +25,7 @@ const Description = (props) => {
           : <span>no current slogan</span>
         }
       </Grid>
-      <Grid item id="description">
+      <Grid item id="description" xs={12}>
         {props.currentProduct ?
           <Typography className={classes.description}>
             {props.currentProduct.description}
