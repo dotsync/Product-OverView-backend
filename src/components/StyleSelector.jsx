@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { Typography, Avatar, GridList, GridListTile, Grid } from '@material-ui/core';
+import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+  },
   grid: {
     display: "flex",
     paddingTop: '7px',
-    paddingBottom: "10px"
+    paddingBottom: "10px",
   },
   price: {
     fontSize: 'small'
@@ -21,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     paddingTop: '15px',
+  },
+  avatar: {
+    boxShadow: theme.shadows[3],
   },
 }));
 
@@ -38,25 +44,37 @@ const StyleSelector = (props) => {
       setSelectedStyle(props.styles[0]);
       setStyles(props.styles);
     }
+  }, [props.styles]);
 
-  });
+  const handleListItemClick = (event, index) => {
+    setSelectedStyle(props.styles[index])
+  }
 
   let styleListItemThumbnails;
   if (props.styles && props.styles.length !== 0) {
     if (props.styles[0].photos[0].thumbnail_url) {
-      styleListItemThumbnails = <GridList cols={4} cellHeight={60} className={classes.gridList}>
-        {props.styles.map((tile) => {
-          return <GridListTile key={tile.style_id}>
-            <Avatar src={tile.photos[0].thumbnail_url} alt={tile.name}/>
+      styleListItemThumbnails = <GridList cols={4} cellHeight={65} className={classes.gridList}>
+        {props.styles.map((tile, index) => {
+          return <GridListTile selected={selectedStyle === props.styles[index]} key={tile.style_id}>
+            <IconButton onClick={(event) => handleListItemClick(event, index)}>
+              <Avatar src={tile.photos[0].thumbnail_url} alt={tile.name} className={classes.avatar}/>
+            </IconButton>
           </GridListTile>
         })}
       </GridList>
     } else {
-      styleListItemThumbnails = props.styles.map((style) => {
-      return <Typography key={style.style_id}>{style.name}</Typography>
-      })
+      styleListItemThumbnails = <GridList cols={2} cellHeight={65}className={classes.gridlist}>{props.styles.map((tile, index) => {
+        return <GridListTile selected={selectedStyle === props.styles[index]} key={tile.style_id}>
+          <Button onClick={(event) => handleListItemClick(event, index)}>
+            <Typography key={tile.style_id}>{tile.name}</Typography>
+          </Button>
+        </GridListTile>
+      })}
+      </GridList>
     }
   }
+
+  console.log("selected style: ", selectedStyle)
 
   return (
     <div>
