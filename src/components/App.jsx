@@ -36,18 +36,21 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(2);
+  const [productId, setProductId] = useState(1);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
+  const [styles, setStyles] = useState(null);
 
   useEffect(() => {
     Promise.all([
       axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}`)
+      axios.get(`http://52.26.193.201:3000/products/${productId}`),
+      axios.get(`http://52.26.193.201:3000/products/${productId}/styles`)
   ])
-    .then(([resReviews, resProduct]) => {
-      setRatings(resReviews.data.ratings)
-      setCurrentProduct(resProduct.data)
+    .then(([resReviews, resProduct, resStyles]) => {
+      setRatings(resReviews.data.ratings);
+      setCurrentProduct(resProduct.data);
+      setStyles(resStyles.data.results);
     })
     .catch((err) => {console.log("axios get error: ", err)});
   }, [])
@@ -70,8 +73,8 @@ const App = () => {
         <Grid item xs={12}>
           <Name currentProduct={currentProduct}/>
         </Grid>
-        <Grid item xs={12} style={{background:randomColor()}}>
-          <StyleSelector />
+        <Grid item xs={12}>
+          <StyleSelector styles={styles}/>
         </Grid>
         <Grid item xs={12} style={{background:randomColor()}}>
           <AddToBag />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure } from 'enzyme';
-import { createShallow, createMount } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
 import Details from '../src/components/Details.jsx';
 
@@ -8,7 +8,6 @@ configure({adapter: new Adapter()});
 
 describe("<Details />", () => {
   let shallow;
-  let mount;
   const data = {
     features: [
       {
