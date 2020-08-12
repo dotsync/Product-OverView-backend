@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import MuiImageSlider from 'mui-image-slider';
 
-const Images = () => {
+const useStyles = makeStyles((theme) => ({
+  fill: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    maxHeight: "500px"
+  },
+  paperContainer: {
+    backgroundColor: 'blue',
+  }
+}));
+
+
+const Images = ({selectedStyle}) => {
+  const classes = useStyles();
+
+  let imageUrls = [];
+  if (selectedStyle) {
+    selectedStyle.photos.map((photo) => {
+      imageUrls.push(photo.url)
+    })
+  }
+
   return (
-    <div>
-      <h4>Images component</h4>
+    <div className={classes.fill}>
+      {selectedStyle ?
+        <MuiImageSlider images={imageUrls} />
+        :
+        <span>no images available</span>
+      }
     </div>
   );
 }

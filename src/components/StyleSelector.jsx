@@ -35,19 +35,17 @@ const StyleSelector = (props) => {
 
   // console.log("styles props: ", props)
 
-
-  const [selectedStyle, setSelectedStyle] = useState(null);
   const [styles, setStyles] = useState(null);
 
   useEffect(() => {
     if (props.styles) {
-      setSelectedStyle(props.styles[0]);
+      props.setSelectedStyle(props.styles[0]);
       setStyles(props.styles);
     }
   }, [props.styles]);
 
   const handleListItemClick = (event, index) => {
-    setSelectedStyle(props.styles[index])
+    props.setSelectedStyle(props.styles[index])
   }
 
   let styleListItemThumbnails;
@@ -55,7 +53,7 @@ const StyleSelector = (props) => {
     if (props.styles[0].photos[0].thumbnail_url) {
       styleListItemThumbnails = <GridList cols={4} cellHeight={65} className={classes.gridList}>
         {props.styles.map((tile, index) => {
-          return <GridListTile selected={selectedStyle === props.styles[index]} key={tile.style_id}>
+          return <GridListTile selected={props.selectedStyle === props.styles[index]} key={tile.style_id}>
             <IconButton onClick={(event) => handleListItemClick(event, index)}>
               <Avatar src={tile.photos[0].thumbnail_url} alt={tile.name} className={classes.avatar}/>
             </IconButton>
@@ -64,7 +62,7 @@ const StyleSelector = (props) => {
       </GridList>
     } else {
       styleListItemThumbnails = <GridList cols={2} cellHeight={65}className={classes.gridlist}>{props.styles.map((tile, index) => {
-        return <GridListTile selected={selectedStyle === props.styles[index]} key={tile.style_id}>
+        return <GridListTile selected={props.selectedStyle === props.styles[index]} key={tile.style_id}>
           <Button onClick={(event) => handleListItemClick(event, index)}>
             <Typography key={tile.style_id}>{tile.name}</Typography>
           </Button>
@@ -74,30 +72,30 @@ const StyleSelector = (props) => {
     }
   }
 
-  // console.log("selected style: ", selectedStyle)
+  // console.log("selected style: ", props.selectedStyle)
 
   return (
     <div>
-      {selectedStyle ?
-        selectedStyle.sale_price === "0" ?
+      {props.selectedStyle ?
+        props.selectedStyle.sale_price === "0" ?
           <Grid container spacing={1} className={classes.grid}>
             <Grid item>
-              <Typography className={classes.price}>${selectedStyle.original_price}</Typography>
+              <Typography className={classes.price}>${props.selectedStyle.original_price}</Typography>
             </Grid>
           </Grid>
           :
           <Grid container spacing={1} className={classes.grid}>
             <Grid item>
-              <Typography className={classes.originalPrice} id="original-price">${selectedStyle.original_price}</Typography>
+              <Typography className={classes.originalPrice} id="original-price">${props.selectedStyle.original_price}</Typography>
             </Grid>
             <Grid item>
-              <Typography className={classes.price} id="sale-price">${selectedStyle.sale_price}</Typography>
+              <Typography className={classes.price} id="sale-price">${props.selectedStyle.sale_price}</Typography>
             </Grid>
           </Grid>
           :
         <Typography>no styles available</Typography>}
-      {selectedStyle ?
-        <Typography className={classes.stylePointer}><b>Style {'> '}</b>{selectedStyle.name}</Typography>
+      {props.selectedStyle ?
+        <Typography className={classes.stylePointer}><b>Style {'> '}</b>{props.selectedStyle.name}</Typography>
         :
         <Typography><b>Style {'> '}</b>no styles available</Typography>}
       {styleListItemThumbnails ?

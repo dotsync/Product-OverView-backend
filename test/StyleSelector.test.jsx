@@ -3,7 +3,6 @@ import {configure} from 'enzyme';
 import {createShallow, createMount} from '@material-ui/core/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
 import StyleSelector from '../src/components/StyleSelector.jsx';
-import { ExpansionPanelActions } from '@material-ui/core';
 
 configure({adapter: new Adapter()});
 
