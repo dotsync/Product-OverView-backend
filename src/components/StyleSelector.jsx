@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const StyleSelector = (props) => {
   const classes = useStyles();
 
-  console.log("styles props: ", props)
+  // console.log("styles props: ", props)
 
 
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -74,7 +74,7 @@ const StyleSelector = (props) => {
     }
   }
 
-  console.log("selected style: ", selectedStyle)
+  // console.log("selected style: ", selectedStyle)
 
   return (
     <div>
@@ -88,10 +88,10 @@ const StyleSelector = (props) => {
           :
           <Grid container spacing={1} className={classes.grid}>
             <Grid item>
-              <Typography className={classes.originalPrice}>${selectedStyle.original_price}</Typography>
+              <Typography className={classes.originalPrice} id="original-price">${selectedStyle.original_price}</Typography>
             </Grid>
             <Grid item>
-              <Typography className={classes.price}>${selectedStyle.sale_price}</Typography>
+              <Typography className={classes.price} id="sale-price">${selectedStyle.sale_price}</Typography>
             </Grid>
           </Grid>
           :
