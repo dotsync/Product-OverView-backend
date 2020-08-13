@@ -36,16 +36,17 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(13);
+  const [productId, setProductId] = useState(3);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [selectedStyle, setSelectedStyle] = useState(null);
 
   useEffect(() => {
     Promise.all([
-      axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}/styles`)
+      axios.get(`http://18.224.200.47/reviews/${productId}/meta`),
+      axios.get(`http://18.224.200.47/products/${productId}`),
+      axios.get(`http://18.224.200.47/products/${productId}/styles`)
   ])
     .then(([resReviews, resProduct, resStyles]) => {
       setRatings(resReviews.data.ratings);
@@ -63,8 +64,8 @@ const App = () => {
       <Grid item xs={12}>
         <Announcement />
       </Grid>
-      <Grid item xs={7} style={{background:randomColor()}}>
-        <Images />
+      <Grid item xs={7}>
+        <Images selectedStyle={selectedStyle}/>
       </Grid>
       <Grid container className={classes.details} item xs={4}>
         <Grid item xs={12} className={classes.reviews}>
@@ -74,7 +75,7 @@ const App = () => {
           <Name currentProduct={currentProduct}/>
         </Grid>
         <Grid item xs={12}>
-          <StyleSelector styles={styles}/>
+          <StyleSelector styles={styles} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
         </Grid>
         <Grid item xs={12} style={{background:randomColor()}}>
           <AddToBag />
