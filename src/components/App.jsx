@@ -44,9 +44,9 @@ const App = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}/styles`)
+      axios.get(`http://18.224.200.47/reviews/${productId}/meta`),
+      axios.get(`http://18.224.200.47/products/${productId}`),
+      axios.get(`http://18.224.200.47/products/${productId}/styles`)
   ])
     .then(([resReviews, resProduct, resStyles]) => {
       setRatings(resReviews.data.ratings);
