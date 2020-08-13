@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -38,8 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const StyleSelector = (props) => {
   const classes = useStyles();
 
-  // console.log("styles props: ", props)
-
   const [styles, setStyles] = useState(null);
   const [anchorSizeEl, setAnchorSizeEl] = useState(null);
   const [anchorQuantityEl, setAnchorQuantityEl] = useState(null);
@@ -57,10 +55,6 @@ const StyleSelector = (props) => {
 
   const handleAvatarClick = (event, index) => {
     props.setSelectedStyle(props.styles[index])
-    // setSelectedSize(null);
-    // setSelectedSizeIndex(null);
-    // setSelectedQuantity(null);
-    // setSelectedQuantityIndex(null);
   }
 
   const handleSelectSizeClick = (event) => {
@@ -136,14 +130,6 @@ const StyleSelector = (props) => {
       return <MenuItem key={index} onClick={(event) => handleQtyNumberClick(event, index)} selected={index === selectedQuantityIndex}>{index + 1}</MenuItem>
     })
   }
-
-  // console.log("availableSkus", availableSkus)
-  // console.log("anchorSizeEl", anchorSizeEl);
-  console.log("selected size index: ", selectedSizeIndex)
-  // console.log("selected size: ", selectedSize);
-  // console.log("selectedQuantity: ", selectedQuantity);
-  // console.log("selectedQuantityIndex: ", selectedQuantityIndex);
-
 
   return (
     <div>

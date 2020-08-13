@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {configure} from 'enzyme';
 import {createShallow, createMount} from '@material-ui/core/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
