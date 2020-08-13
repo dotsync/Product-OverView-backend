@@ -57,10 +57,10 @@ const StyleSelector = (props) => {
 
   const handleAvatarClick = (event, index) => {
     props.setSelectedStyle(props.styles[index])
-    setSelectedSize(null);
-    setSelectedSizeIndex(null);
-    setSelectedQuantity(null);
-    setSelectedQuantityIndex(null);
+    // setSelectedSize(null);
+    // setSelectedSizeIndex(null);
+    // setSelectedQuantity(null);
+    // setSelectedQuantityIndex(null);
   }
 
   const handleSelectSizeClick = (event) => {
@@ -71,7 +71,7 @@ const StyleSelector = (props) => {
     setSelectedSize(styleSkus[index].props.children);
     setSelectedSizeIndex(index);
     setAnchorSizeEl(null);
-    setSelectedQuantity(null);
+    setSelectedQuantity(1);
     setSelectedQuantityIndex(null);
   }
 
@@ -80,7 +80,7 @@ const StyleSelector = (props) => {
   }
 
   const handleQtyNumberClick = (event, index) => {
-    setSelectedQuantityIndex(index);
+    setSelectedQuantityIndex(index + 1);
     setSelectedQuantity(index + 1);
     setAnchorQuantityEl(null);
   }
@@ -139,8 +139,11 @@ const StyleSelector = (props) => {
 
   // console.log("availableSkus", availableSkus)
   // console.log("anchorSizeEl", anchorSizeEl);
-  console.log("selected size: ", selectedSize);
-  console.log("selectedQuantity: ", selectedQuantity);
+  console.log("selected size index: ", selectedSizeIndex)
+  // console.log("selected size: ", selectedSize);
+  // console.log("selectedQuantity: ", selectedQuantity);
+  // console.log("selectedQuantityIndex: ", selectedQuantityIndex);
+
 
   return (
     <div>
@@ -208,8 +211,8 @@ const StyleSelector = (props) => {
               onClick={handleQtyButtonClick}
               endIcon={<ArrowDropDownIcon />}
               >
-              {selectedQuantityIndex ?
-                <span>Qty: {selectedQuantityIndex + 1}</span> :
+              {selectedQuantity ?
+                <span>Qty: {selectedQuantity}</span> :
                 <span>Qty</span>
               }
               </Button>
