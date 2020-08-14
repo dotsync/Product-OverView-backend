@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem, Tooltip } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import EmailIcon from '@material-ui/icons/Email';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import PinterestIcon from '@material-ui/icons/Pinterest';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,9 +35,47 @@ const useStyles = makeStyles((theme) => ({
   },
   selectionButtons: {
     display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: '10px'
+  },
+  buttonWrappers: {
+    display: 'flex',
+    border: "1px solid",
+    justifyContent: "center",
+  },
+  shareContainer: {
+    display: 'flex',
     justifyContent: 'space-between'
+  },
+  shareText: {
+    display: 'flex',
+    justifyContent: "center",
+    textTransform: "uppercase",
+    fontSize: 'large',
+    alignSelf: 'center'
+  },
+  icons: {
+    display: 'flex',
+    justifyContent: 'space-evenly'
+  },
+  selectSize: {
+    width: 'auto'
+  },
+  notAllowed: {
+    cursor: 'not-allowed'
   }
 }));
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+    // borderColor: 'red',
+    // border: '2px solid'
+  },
+}))(Tooltip);
 
 const StyleSelector = (props) => {
   const classes = useStyles();
@@ -45,6 +87,7 @@ const StyleSelector = (props) => {
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedQuantityIndex, setSelectedQuantityIndex] = useState(null);
+  const [warning, setWarning] = useState('Select Size above to add to checkout bag');
 
   useEffect(() => {
     if (props.styles) {
@@ -67,6 +110,7 @@ const StyleSelector = (props) => {
     setAnchorSizeEl(null);
     setSelectedQuantity(1);
     setSelectedQuantityIndex(null);
+    setWarning('');
   }
 
   const handleQtyButtonClick = (event, index) => {
@@ -85,6 +129,14 @@ const StyleSelector = (props) => {
 
   const handleQuantityClose = () => {
     setAnchorQuantityEl(null);
+  }
+
+  const handleWarningClick = () => {
+    alert("Please select a size to add to your shopping bag.")
+  }
+
+  const handleAddToBagClick = () => {
+    alert(`You selected ${selectedQuantity} of ${props.currentProduct.name}, style ${props.selectedStyle.name}, size ${selectedSize}. Your total is $${props.selectedStyle.sale_price === "0" ? selectedQuantity * props.selectedStyle.original_price : selectedQuantity * props.selectedStyle.sale_price}`)
   }
 
   let styleListItemThumbnails;
@@ -159,18 +211,20 @@ const StyleSelector = (props) => {
         <div>{styleListItemThumbnails}</div>
         :
         <div>no thumbnails available</div>}
-      <div className={classes.selectionButtons}>
-        <div id="select-size">
+      <Grid container spacing={2} className={classes.selectionButtons}>
+        <Grid item xs={8} id="select-size">
           {props.selectedStyle ?
-              <div>
+              <Grid item xs={12} className={classes.buttonWrappers}>
                 <Button
                   aria-controls="size-menu"
                   aria-haspopup="true"
                   onClick={handleSelectSizeClick}
                   endIcon={<ArrowDropDownIcon />}
+                  className={classes.buttons}
+                  fullWidth
                   >
                 {selectedSizeIndex || selectedSizeIndex === 0 ?
-                  <span>{styleSkus[selectedSizeIndex].props.children}</span> :
+                  <span>Size: {styleSkus[selectedSizeIndex].props.children}</span> :
                   <span>Select Size</span>}
                 </Button>
                 <Menu
@@ -183,22 +237,24 @@ const StyleSelector = (props) => {
                 anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
                 transformOrigin={{vertical: 'top', horizontal: 'center'}}
                 >{styleSkus}</Menu>
-              </div>
+              </Grid>
             :
             <div>no sizes to select</div>
           }
-        </div>
-        <div id="select-quantity">
+        </Grid>
+        <Grid item xs={4} id="select-quantity">
           {selectedSize ?
-            <div>
-            <Button
+            <Grid item xs={12} className={classes.buttonWrappers}>
+              <Button
               aria-controls="quantity-menu"
               aria-haspopup="true"
               onClick={handleQtyButtonClick}
               endIcon={<ArrowDropDownIcon />}
+              className={classes.buttons}
+              fullWidth
               >
               {selectedQuantity ?
-                <span>Qty: {selectedQuantity}</span> :
+                <span >Qty: {selectedQuantity}</span> :
                 <span>Qty</span>
               }
               </Button>
@@ -212,12 +268,44 @@ const StyleSelector = (props) => {
               anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
               transformOrigin={{vertical: 'top', horizontal: 'center'}}
               >{availableSkus}</Menu>
-            </div>
+            </Grid>
             :
-            <span></span>
+            <Grid item xs={4}></Grid>
           }
-        </div>
-      </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid item xs={12} className={classes.buttonWrappers}>
+            <LightTooltip title={warning === '' ? '' : warning} placement="left">
+              <Button
+                fullWidth
+                className={warning === '' ? '' : classes.notAllowed}
+                onClick={warning === '' ? handleAddToBagClick : handleWarningClick}
+              >Add to Bag</Button>
+            </LightTooltip>
+          </Grid>
+        </Grid>
+        <Grid container item xs={12} className={classes.shareContainer}>
+          <Grid item xs={3} className={classes.shareText}>
+            <Typography>
+              Share
+            </Typography>
+          </Grid>
+          <Grid item xs={9} className={classes.icons}>
+          <IconButton>
+              <EmailIcon />
+            </IconButton>
+            <IconButton>
+              <FacebookIcon />
+            </IconButton>
+            <IconButton>
+              <TwitterIcon />
+            </IconButton>
+            <IconButton>
+              <PinterestIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 }
