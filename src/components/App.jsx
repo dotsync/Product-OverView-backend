@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import randomColor from 'randomcolor';
 import Header from './Header.jsx';
 import Announcement from './Announcement.jsx';
 import Images from './Images.jsx';
 import Reviews from './Reviews.jsx';
 import Name from './Name.jsx';
 import StyleSelector from './StyleSelector.jsx';
-import AddToBag from './AddToBag.jsx';
-import Share from './Share.jsx';
 import Description from './Description.jsx';
 import Details from './Details.jsx';
 import axios from 'axios';
@@ -36,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(3);
+  const [productId, setProductId] = useState(8);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [styles, setStyles] = useState(null);
@@ -76,12 +73,6 @@ const App = () => {
         </Grid>
         <Grid item xs={12}>
           <StyleSelector styles={styles} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
-        </Grid>
-        <Grid item xs={12} style={{background:randomColor()}}>
-          <AddToBag />
-        </Grid>
-        <Grid item xs={12} style={{background:randomColor()}}>
-          <Share />
         </Grid>
       </Grid>
       <Grid container item xs={12}>

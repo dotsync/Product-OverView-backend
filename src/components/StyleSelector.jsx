@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import EmailIcon from '@material-ui/icons/Email';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import PinterestIcon from '@material-ui/icons/Pinterest';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +35,31 @@ const useStyles = makeStyles((theme) => ({
   },
   selectionButtons: {
     display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: '10px'
+  },
+  buttonWrappers: {
+    display: 'flex',
+    border: "1px solid",
+    justifyContent: "center",
+  },
+  shareContainer: {
+    display: 'flex',
     justifyContent: 'space-between'
+  },
+  shareText: {
+    display: 'flex',
+    justifyContent: "center",
+    textTransform: "uppercase",
+    fontSize: 'large',
+    alignSelf: 'center'
+  },
+  icons: {
+    display: 'flex',
+    justifyContent: 'space-evenly'
+  },
+  selectSize: {
+    width: 'auto'
   }
 }));
 
@@ -159,18 +187,20 @@ const StyleSelector = (props) => {
         <div>{styleListItemThumbnails}</div>
         :
         <div>no thumbnails available</div>}
-      <div className={classes.selectionButtons}>
-        <div id="select-size">
+      <Grid container spacing={2} className={classes.selectionButtons}>
+        <Grid item xs={8} id="select-size">
           {props.selectedStyle ?
-              <div>
+              <Grid item xs={12} className={classes.buttonWrappers}>
                 <Button
                   aria-controls="size-menu"
                   aria-haspopup="true"
                   onClick={handleSelectSizeClick}
                   endIcon={<ArrowDropDownIcon />}
+                  className={classes.buttons}
+                  fullWidth
                   >
                 {selectedSizeIndex || selectedSizeIndex === 0 ?
-                  <span>{styleSkus[selectedSizeIndex].props.children}</span> :
+                  <span>Size: {styleSkus[selectedSizeIndex].props.children}</span> :
                   <span>Select Size</span>}
                 </Button>
                 <Menu
@@ -183,22 +213,24 @@ const StyleSelector = (props) => {
                 anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
                 transformOrigin={{vertical: 'top', horizontal: 'center'}}
                 >{styleSkus}</Menu>
-              </div>
+              </Grid>
             :
             <div>no sizes to select</div>
           }
-        </div>
-        <div id="select-quantity">
+        </Grid>
+        <Grid item xs={4} id="select-quantity">
           {selectedSize ?
-            <div>
-            <Button
+            <Grid item xs={12} className={classes.buttonWrappers}>
+              <Button
               aria-controls="quantity-menu"
               aria-haspopup="true"
               onClick={handleQtyButtonClick}
               endIcon={<ArrowDropDownIcon />}
+              className={classes.buttons}
+              fullWidth
               >
               {selectedQuantity ?
-                <span>Qty: {selectedQuantity}</span> :
+                <span >Qty: {selectedQuantity}</span> :
                 <span>Qty</span>
               }
               </Button>
@@ -212,12 +244,40 @@ const StyleSelector = (props) => {
               anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
               transformOrigin={{vertical: 'top', horizontal: 'center'}}
               >{availableSkus}</Menu>
-            </div>
+            </Grid>
             :
-            <span></span>
+            <Grid item xs={4}></Grid>
           }
-        </div>
-      </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid item xs={12} className={classes.buttonWrappers}>
+            <Button
+              fullWidth
+            >Add to Bag</Button>
+          </Grid>
+        </Grid>
+        <Grid container item xs={12} className={classes.shareContainer}>
+          <Grid item xs={3} className={classes.shareText}>
+            <Typography>
+              Share
+            </Typography>
+          </Grid>
+          <Grid item xs={9} className={classes.icons}>
+          <IconButton>
+              <EmailIcon />
+            </IconButton>
+            <IconButton>
+              <FacebookIcon />
+            </IconButton>
+            <IconButton>
+              <TwitterIcon />
+            </IconButton>
+            <IconButton>
+              <PinterestIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 }
