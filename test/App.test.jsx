@@ -8,8 +8,6 @@ import Images from '../src/components/Images.jsx';
 import Reviews from '../src/components/Reviews.jsx';
 import Name from '../src/components/Name.jsx';
 import StyleSelector from '../src/components/StyleSelector.jsx';
-import AddToBag from '../src/components/AddToBag.jsx';
-import Share from '../src/components/Share.jsx';
 import Description from '../src/components/Description.jsx';
 import Details from '../src/components/Details.jsx';
 
@@ -44,16 +42,6 @@ describe('<App />', () => {
   it('should contain a styleSelector component', () => {
     const wrapper = shallow(<App />);
     expect (wrapper.find(<StyleSelector />)).toBeDefined();
-  })
-
-  it('should contain an AddSelection component', () => {
-    const wrapper = shallow(<App />);
-    expect (wrapper.find(<AddToBag />)).toBeDefined();
-  })
-
-  it('should contain a share component', () => {
-    const wrapper = shallow(<App />);
-    expect (wrapper.find(<Share />)).toBeDefined();
   })
 
   it('should contain a description component', () => {
