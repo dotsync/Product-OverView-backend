@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem, Tooltip } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -60,8 +60,22 @@ const useStyles = makeStyles((theme) => ({
   },
   selectSize: {
     width: 'auto'
+  },
+  notAllowed: {
+    cursor: 'not-allowed'
   }
 }));
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+    // borderColor: 'red',
+    // border: '2px solid'
+  },
+}))(Tooltip);
 
 const StyleSelector = (props) => {
   const classes = useStyles();
@@ -73,6 +87,7 @@ const StyleSelector = (props) => {
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedQuantityIndex, setSelectedQuantityIndex] = useState(null);
+  const [warning, setWarning] = useState('Select Size above to add to checkout bag');
 
   useEffect(() => {
     if (props.styles) {
@@ -95,6 +110,7 @@ const StyleSelector = (props) => {
     setAnchorSizeEl(null);
     setSelectedQuantity(1);
     setSelectedQuantityIndex(null);
+    setWarning('');
   }
 
   const handleQtyButtonClick = (event, index) => {
@@ -113,6 +129,14 @@ const StyleSelector = (props) => {
 
   const handleQuantityClose = () => {
     setAnchorQuantityEl(null);
+  }
+
+  const handleWarningClick = () => {
+    alert("Please select a size to add to your shopping bag.")
+  }
+
+  const handleAddToBagClick = () => {
+    alert(`You selected ${selectedQuantity} of ${props.currentProduct.name}, style ${props.selectedStyle.name}, size ${selectedSize}. Your total is $${props.selectedStyle.sale_price === "0" ? selectedQuantity * props.selectedStyle.original_price : selectedQuantity * props.selectedStyle.sale_price}`)
   }
 
   let styleListItemThumbnails;
@@ -251,9 +275,13 @@ const StyleSelector = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid item xs={12} className={classes.buttonWrappers}>
-            <Button
-              fullWidth
-            >Add to Bag</Button>
+            <LightTooltip title={warning === '' ? '' : warning} placement="left">
+              <Button
+                fullWidth
+                className={warning === '' ? '' : classes.notAllowed}
+                onClick={warning === '' ? handleAddToBagClick : handleWarningClick}
+              >Add to Bag</Button>
+            </LightTooltip>
           </Grid>
         </Grid>
         <Grid container item xs={12} className={classes.shareContainer}>

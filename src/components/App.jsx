@@ -72,7 +72,7 @@ const App = () => {
           <Name currentProduct={currentProduct}/>
         </Grid>
         <Grid item xs={12}>
-          <StyleSelector styles={styles} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
+          <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
         </Grid>
       </Grid>
       <Grid container item xs={12}>
