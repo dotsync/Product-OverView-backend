@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     root: {
         height: "100%",
         position: "absolute",
-        top: 0,
+        top: 20,
         right: ({right}) => right && 0,
         width: "10%",
         display: "flex",

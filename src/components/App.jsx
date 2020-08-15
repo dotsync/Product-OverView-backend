@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: '0px',
     padding: '0px',
+    display: 'flex',
+    justifyContent: 'center'
   },
   details: {
     marginLeft: '20px'
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   description: {
     marginLeft: "50px",
     marginTop: "20px"
+  },
+  body: {
+    maxWidth: "85.375em",
   }
 }));
 
@@ -63,28 +68,30 @@ const App = () => {
       <Grid item xs={12}>
         <Announcement />
       </Grid>
-      <Grid item xs={7}>
-        <Images selectedStyle={selectedStyle}/>
-      </Grid>
-      <Grid container className={classes.details} item xs={4}>
-        <Grid item xs={12} className={classes.reviews}>
-          <Reviews productId={productId} ratings={ratings}/>
-        </Grid>
-        <Grid item xs={12}>
-          <Name currentProduct={currentProduct}/>
-        </Grid>
-        <Grid item xs={12}>
-          <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
-        </Grid>
-      </Grid>
-      <Grid container item xs={12}>
+      <Grid container item xs={12} className={classes.body}>
         <Grid item xs={7}>
-          <div className={classes.description}>
-            <Description currentProduct={currentProduct} />
-          </div>
+          <Images selectedStyle={selectedStyle}/>
         </Grid>
-        <Grid item xs={5}>
-          <Details currentProduct={currentProduct}/>
+        <Grid container className={classes.details} item xs={4}>
+          <Grid item xs={12} className={classes.reviews}>
+            <Reviews productId={productId} ratings={ratings}/>
+          </Grid>
+          <Grid item xs={12}>
+            <Name currentProduct={currentProduct}/>
+          </Grid>
+          <Grid item xs={12}>
+            <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
+          </Grid>
+        </Grid>
+        <Grid container item xs={12}>
+          <Grid item xs={7}>
+            <div className={classes.description}>
+              <Description currentProduct={currentProduct} />
+            </div>
+          </Grid>
+          <Grid item xs={5}>
+            <Details currentProduct={currentProduct}/>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

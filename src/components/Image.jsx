@@ -5,13 +5,15 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 const useStyles = makeStyles({
     root: {
         display: 'flex',
-        transitionProperty: 'transform',
+        // transitionProperty: 'transform',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     img: {
         width: '100%',
+        overflow: 'hidden',
+        alignSelf: 'center'
     },
 });
 
@@ -23,9 +25,9 @@ const Image = (props) => {
 
     const classes = useStyles(props);
     return <div key={currentImage} className={classes.root}>
-        <Slide in={true} direction={direction}>
+        {/* <Slide in={true} direction={direction}> */}
             <img className={classes.img} src={src} alt=""/>
-        </Slide>
+        {/* </Slide> */}
     </div>;
 };
 
