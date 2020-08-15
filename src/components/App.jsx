@@ -53,6 +53,8 @@ const App = () => {
     .catch((err) => {console.log("axios get error: ", err)});
   }, [])
 
+  console.log("selected styles in app component: ", selectedStyle)
+
   return (
     <Grid container className={classes.grid}>
       <Grid item xs={12}>
