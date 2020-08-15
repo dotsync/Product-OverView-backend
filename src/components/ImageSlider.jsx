@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {GridList, GridListTile, Button, Grid, IconButton} from '@material-ui/core';
+import {GridList, GridListTile, Button, Grid, IconButton, Dialog, DialogContent} from '@material-ui/core';
 import Image from './Image.jsx';
 import ArrowButton from "./ArrowButton.jsx";
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
@@ -30,7 +30,8 @@ const useStyles = makeStyles({
     maxHeight: '500px',
     width: '110px',
     justifyContent: 'space-between',
-    overflow: 'auto'
+    overflow: 'auto',
+    zIndex: '101',
   },
   button: {
     maxHeight: '90px'
@@ -66,6 +67,10 @@ const useStyles = makeStyles({
     color: 'white',
     opacity: 100,
   },
+  dialogContent: {
+    width: "100%",
+    maxWidth: 'none'
+  }
 });
 
 const ImageSlider = props => {
@@ -90,6 +95,7 @@ const ImageSlider = props => {
   const [currentImage, setCurrentImage] = useState(0);
   const [direction, setDirection] = useState('left');
   const [mouseOver, setMouseOver] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const getNextImage = () => (currentImage + 1) % images.length;
   const getPrevImage = () => (currentImage ? currentImage : images.length) - 1;
@@ -116,9 +122,13 @@ const ImageSlider = props => {
     setCurrentImage(index);
   }
 
-  // const handleImageClick = (event) => {
-  //   console.log("image click");
-  // }
+  const handleFullScreenClick = () => {
+    setOpen(true);
+  }
+
+  const handleFullScreenClose = () => {
+    setOpen(false);
+  }
 
   const showButtons = arrows && images.length > 1;
 
@@ -149,30 +159,38 @@ const ImageSlider = props => {
               onMouseOut={() => setMouseOver(false)}>
             <div className={classes.wrapper}>
                 {showButtons && <ArrowButton left
-                                        {...options}
-                                        showArrows={mouseOver}
-                                        onButtonClick={handlePrevImageClick}
-                                        classes={{root: classes.arrowWrapper}}
-                                        CustomArrow={CustomArrow}/>}
-
+                                  {...options}
+                                  showArrows={mouseOver}
+                                  onButtonClick={handlePrevImageClick}
+                                  classes={{root: classes.arrowWrapper}}
+                                  CustomArrow={CustomArrow}/>}
                 <Image
                   currentImage={currentImage}
                   src={images[currentImage]}
                   direction={direction}
                   classes={{img: classes.img}}/>
                 {showButtons && <ArrowButton right
-                                        {...options}
-                                        showArrows={mouseOver}
-                                        onButtonClick={handleNextImageClick}
-                                        classes={{root: classes.arrowWrapper}}
-                                          CustomArrow={CustomArrow}/>}
+                                  {...options}
+                                  showArrows={mouseOver}
+                                  onButtonClick={handleNextImageClick}
+                                  classes={{root: classes.arrowWrapper}}
+                                  CustomArrow={CustomArrow}/>}
                 {showButtons && <IconButton
-                                  className={mouseOver ? classes.fullScreenButtonVisible : classes.fullScreenButtonHidden}>
+                                  className={mouseOver ? classes.fullScreenButtonVisible : classes.fullScreenButtonHidden}
+                                  onClick={handleFullScreenClick}>
                                   <FullscreenIcon />
                                 </IconButton>}
             </div>
           </div>
         </Grid>
+        <Dialog
+          open={open}
+          onClose={handleFullScreenClose}
+          maxWidth={"xl"}>
+          <DialogContent>
+            <img src={images[currentImage]}/>
+          </DialogContent>
+        </Dialog>
       </Grid>
   );
 };
