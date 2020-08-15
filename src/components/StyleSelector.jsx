@@ -72,8 +72,6 @@ const LightTooltip = withStyles((theme) => ({
     color: 'rgba(0, 0, 0, 0.87)',
     boxShadow: theme.shadows[1],
     fontSize: 11,
-    // borderColor: 'red',
-    // border: '2px solid'
   },
 }))(Tooltip);
 
@@ -178,7 +176,6 @@ const StyleSelector = (props) => {
   if (selectedSize) {
     numberOfSkus = Array.from(Array(props.selectedStyle.skus[selectedSize]).keys());
     availableSkus = numberOfSkus.map((index) => {
-      // console.log("number", index)
       return <MenuItem key={index} onClick={(event) => handleQtyNumberClick(event, index)} selected={index === selectedQuantityIndex}>{index + 1}</MenuItem>
     })
   }

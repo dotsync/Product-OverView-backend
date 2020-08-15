@@ -23,7 +23,6 @@ const useStyles = makeStyles({
   },
   arrowWrapper: {},
   img: {
-    // cursor: 'zoom-in',
     alignSelf: 'center'
   },
   gridList: {
@@ -35,9 +34,6 @@ const useStyles = makeStyles({
   },
   button: {
     maxHeight: '90px'
-  },
-  thumbnails: {
-    // overflow: 'hidden'
   },
   tile: {
     height: '90px',
@@ -141,7 +137,7 @@ const ImageSlider = props => {
       className={classes.button}
       fullWidth>
         <GridListTile className={classes.tile}>
-          <img src={tile} className={classes.thumbnails}/>
+          <img src={tile}/>
          </GridListTile>
       </Button>
   })

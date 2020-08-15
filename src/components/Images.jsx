@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-    // maxHeight: "500px"
   },
   paperContainer: {
     backgroundColor: 'blue',
