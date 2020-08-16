@@ -33,7 +33,7 @@ const Details = (props) => {
                   <CheckIcon />
                 </Grid>
                  <Grid item>
-                   <Typography className={classes.featureText}>{feature.feature}</Typography>
+                   <Typography className={classes.featureText} id="noValue">{feature.feature}</Typography>
                  </Grid>
                </Grid>
       }
@@ -56,7 +56,7 @@ const Details = (props) => {
         <div id="features" className={classes.features}>
           {featureListItems}
         </div>
-        : <span>no current features</span>
+        : <span id="noFeatures">no current features</span>
       }
     </div>
   );

@@ -30,9 +30,9 @@ const Images = ({selectedStyle}) => {
   return (
     <div className={classes.fill}>
       {selectedStyle ?
-        <ImageSlider images={imageUrls} thumbnails={thumbnailUrls}/>
+        <ImageSlider images={imageUrls} thumbnails={thumbnailUrls} id="imageSlider"/>
         :
-        <span>no images available</span>
+        <span id="noImages">no images available</span>
       }
     </div>
   );

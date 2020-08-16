@@ -197,7 +197,6 @@ describe('<StyleSelector />', () => {
   it("should display a sale price if item is on sale", () => {
     const wrapper = shallow(<StyleSelector styles={styles} />);
     // have to specify the index of the node to be inspected with .at(1)
-    console.log(wrapper.debug());
     expect(wrapper.exists('#select-size')).toBe(true);
   })
 })

@@ -18,17 +18,17 @@ const Name = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} id="name">
+    <div className={classes.root}>
       {props.currentProduct ?
-        <div id="name">
+        <div id="nameCategoryWrapper">
           <Typography className={classes.category} id="category">
             {props.currentProduct.category}
           </Typography>
-          <Typography variant="h4" className={classes.name}>
+          <Typography variant="h4" className={classes.name} id="name">
             {props.currentProduct.name}
           </Typography>
         </div>
-        : <span id="name">no current product</span>}
+        : <span id="noName">no current product</span>}
     </div>
   );
 }

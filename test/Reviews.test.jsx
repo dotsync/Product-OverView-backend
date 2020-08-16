@@ -1,40 +1,39 @@
 import React from 'react';
-import Reviews from '../src/components/Reviews';
-
-import { configure, shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
+import Reviews from '../src/components/Reviews.jsx';
+
 configure({ adapter: new Adapter() });
 
-describe('Basic Rendering', () => {
-  let wrapper;
+describe('<Ratings />', () => {
+  let shallow;
+  let ratings = {
+    4: 2,
+    5: 1
+  }
 
-  beforeEach(() => {
-    wrapper = shallow(<Reviews />);
+  beforeAll(() => {
+    shallow = createShallow();
   });
 
-  test('Should contain a ratings div', () => {
-    expect(wrapper.exists('#reviews')).toBe(true);
+  it('should contain a ratings container', () => {
+    const wrapper = shallow(<Reviews />);
+    expect(wrapper.exists('#ratingsContainer')).toBe(true);
   });
+
+  it('should render conditional statement before API call has resolved', () => {
+    const wrapper = shallow(<Reviews ratings={null}/>);
+    expect(wrapper.find('#noRatings').text()).toBe('no ratings right now')
+  })
+
+  it('should render a rating after API call has resolved', () => {
+    const wrapper = shallow(<Reviews ratings={ratings}/>);
+    expect(wrapper.exists('#ratings')).toBe(true);
+  })
+
+  it('should correctly calculate an average rating', () => {
+    const wrapper = shallow(<Reviews ratings={ratings}/>);
+    expect(wrapper.find('#ratings').prop('value')).toBe(4.333333333333333);
+  })
 });
-
-describe('Displaying metadata', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    let ratings = {
-      4: 2,
-      5: 1
-    }
-
-    wrapper = shallow(<Reviews />);
-  });
-
-  test('Should render a ratings component', () => {
-    expect(wrapper.find('#rating-component')).toBeDefined();
-  });
-
-  // test('Should calculate rating', () => {
-  //   expect(wrapper.find('#rating-component').value).toBe('4.3');
-  // })
-
-})

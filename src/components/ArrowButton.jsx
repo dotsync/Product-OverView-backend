@@ -45,7 +45,7 @@ function ArrowButton(props) {
     }
 
     const classes = useStyles(props);
-    return <div onClick={onButtonClick} className={classes.root}>
+    return <div onClick={onButtonClick} className={classes.root} id="clickableArrow">
         {CustomArrow ? CustomArrow() : <i className={`${classes.arrow}`}/>}
     </div>;
 }

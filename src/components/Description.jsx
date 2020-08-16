@@ -17,12 +17,12 @@ const Description = (props) => {
 
   return (
     <Grid container className={classes.container}>
-      <Grid item id="slogan" xs={12}>
+      <Grid item xs={12} id="sloganItem">
         {props.currentProduct ?
-          <Typography className={classes.slogan}>
+          <Typography id="slogan" className={classes.slogan}>
             {props.currentProduct.slogan}
           </Typography>
-          : <span>no current slogan</span>
+          : <span id="noSlogan">no current slogan</span>
         }
       </Grid>
       <Grid item id="description" xs={12}>

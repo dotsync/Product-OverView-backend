@@ -12,7 +12,7 @@ describe("<Details />", () => {
     features: [
       {
         "feature": "Sole",
-        "value": "Rubber"
+        "value": "null"
       },
       {
         "feature": "Material",
@@ -25,14 +25,19 @@ describe("<Details />", () => {
     shallow = createShallow();
   })
 
-  it("should contain a features div", () => {
+  it('should render conditional messages before API call has resolved', () => {
+    const wrapper = shallow(<Details currentProduct={null}/>);
+    expect(wrapper.find("#noFeatures").text()).toBe('no current features');
+  })
+
+  it("should contain a features div after API call has resolved", () => {
     const wrapper = shallow(<Details currentProduct={data}/>);
     expect(wrapper.exists('#features')).toBe(true);
   })
 
-  // not finding divs correctly, moving on for now
-  // it("should display features", () => {
-  //   const wrapper = shallow(<Details currentProduct={data}/>);
-  //   expect(wrapper.find('.makeStyles-featureText-4')).to.contain.text("Sole -- Rubber")
-  // })
+  it("should correctly handle cases where feature value is null", () => {
+    const wrapper = shallow(<Details currentProduct={data}/>);
+    expect(wrapper.find('#noValue').text()).toBe("Sole");
+  })
+
 })

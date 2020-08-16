@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(8);
+  const [productId, setProductId] = useState(1);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [styles, setStyles] = useState(null);
@@ -46,9 +46,9 @@ const App = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`http://18.224.200.47/reviews/${productId}/meta`),
-      axios.get(`http://18.224.200.47/products/${productId}`),
-      axios.get(`http://18.224.200.47/products/${productId}/styles`)
+      axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
+      axios.get(`http://52.26.193.201:3000/products/${productId}`),
+      axios.get(`http://52.26.193.201:3000/products/${productId}/styles`)
   ])
     .then(([resReviews, resProduct, resStyles]) => {
       setRatings(resReviews.data.ratings);
@@ -61,34 +61,34 @@ const App = () => {
   return (
     <Grid container className={classes.grid}>
       <Grid item xs={12}>
-        <Header />
+        <Header id="header"/>
       </Grid>
       <Grid item xs={12}>
-        <Announcement />
+        <Announcement id="announcement"/>
       </Grid>
       <Grid container item xs={12} className={classes.body}>
         <Grid item xs={7}>
-          <Images selectedStyle={selectedStyle}/>
+          <Images selectedStyle={selectedStyle} id="images"/>
         </Grid>
         <Grid container className={classes.details} item xs={4}>
           <Grid item xs={12} className={classes.reviews}>
-            <Reviews productId={productId} ratings={ratings}/>
+            <Reviews productId={productId} ratings={ratings} id="reviews"/>
           </Grid>
           <Grid item xs={12}>
-            <Name currentProduct={currentProduct}/>
+            <Name currentProduct={currentProduct} id="name"/>
           </Grid>
           <Grid item xs={12}>
-            <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle}/>
+            <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} id="styleSelector"/>
           </Grid>
         </Grid>
         <Grid container item xs={12}>
           <Grid item xs={7}>
             <div className={classes.description}>
-              <Description currentProduct={currentProduct} />
+              <Description currentProduct={currentProduct} id="description"/>
             </div>
           </Grid>
           <Grid item xs={5}>
-            <Details currentProduct={currentProduct}/>
+            <Details currentProduct={currentProduct} id="details"/>
           </Grid>
         </Grid>
       </Grid>

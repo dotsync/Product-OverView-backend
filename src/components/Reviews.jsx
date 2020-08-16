@@ -25,16 +25,16 @@ const Reviews = (props) => {
   }
 
   return (
-    <div id="reviews">
+    <div id="ratingsContainer">
       {props.ratings ?
         <Rating
           name="read-only"
-          id="rating-component"
+          id="ratings"
           value={averageRating}
           readOnly
           precision={0.25}
           size="small"
-        /> : <span id="rating-component">no ratings right now</span>}
+        /> : <span id="noRatings">no ratings right now</span>}
     </div>
   );
 }

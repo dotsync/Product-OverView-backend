@@ -163,7 +163,6 @@ const ImageSlider = props => {
                 <Image
                   currentImage={currentImage}
                   src={images[currentImage]}
-                  direction={direction}
                   classes={{img: classes.img}}/>
                 {showButtons && <ArrowButton right
                                   {...options}

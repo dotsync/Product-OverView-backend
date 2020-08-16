@@ -1,11 +1,9 @@
 import React from "react";
-// import Slide from "@material-ui/core/Slide";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useStyles = makeStyles({
     root: {
         display: 'flex',
-        // transitionProperty: 'transform',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -18,16 +16,13 @@ const useStyles = makeStyles({
 });
 
 const Image = (props) => {
-    const {src, direction, currentImage} = props;
-    if (!src) {
-        throw new Error('Image src is required.');
-    }
+    const {src, currentImage} = props;
 
     const classes = useStyles(props);
     return <div key={currentImage} className={classes.root}>
-        {/* <Slide in={true} direction={direction}> */}
-            <img className={classes.img} src={src} alt=""/>
-        {/* </Slide> */}
+            {src ?
+                <img className={classes.img} src={src} alt="image" id="image"/> :
+                <span id="noImage">Image source temporarily unavailable. Select another thumbnail.</span>}
     </div>;
 };
 

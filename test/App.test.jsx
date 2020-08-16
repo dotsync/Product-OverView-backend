@@ -1,6 +1,8 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
-import {configure, shallow, render} from 'enzyme';
+import { configure } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
+
 import App from "../src/components/App.jsx";
 import Header from "../src/components/Header.jsx";
 import Announcement from '../src/components/Announcement.jsx';
@@ -14,43 +16,49 @@ import Details from '../src/components/Details.jsx';
 configure({ adapter: new Adapter() });
 
 describe('<App />', () => {
+  let shallow;
+
+  beforeAll(() => {
+    shallow = createShallow();
+  })
+
   it('should contain a header component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Header />)).toBeDefined();
+    expect (wrapper.exists("#header")).toBe(true);
   })
 
   it('should contain an announcement component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Announcement />)).toBeDefined();
+    expect (wrapper.exists("#announcement")).toBe(true);
   })
 
-  it('should contain a carousel component', () => {
+  it('should contain a images component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Images />)).toBeDefined();
+    expect (wrapper.exists("#images")).toBe(true);
   })
 
   it('should contain a reviews component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Reviews />)).toBeDefined();
+    expect (wrapper.exists("#reviews")).toBe(true);
   })
 
   it('should contain a name component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Name />)).toBeDefined();
+    expect (wrapper.exists("#name")).toBe(true);
   })
 
   it('should contain a styleSelector component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<StyleSelector />)).toBeDefined();
+    expect (wrapper.exists("#styleSelector")).toBe(true);
   })
 
   it('should contain a description component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Description />)).toBeDefined();
+    expect (wrapper.exists("#description")).toBe(true);
   })
 
-  it('should contain a features component', () => {
+  it('should contain a details component', () => {
     const wrapper = shallow(<App />);
-    expect (wrapper.find(<Details />)).toBeDefined();
+    expect (wrapper.exists("#details")).toBe(true);
   })
 })
