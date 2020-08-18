@@ -269,7 +269,7 @@ const StyleSelector = (props) => {
               >{availableSkus}</Menu>
             </Grid>
             :
-            <Grid item xs={4}>nothing</Grid>
+            <Grid item xs={4}></Grid>
           }
         </Grid>
         <Grid item xs={12}>
