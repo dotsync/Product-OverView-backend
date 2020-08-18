@@ -20,7 +20,7 @@ const Announcement = () => {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.announcement}>IO Silver is the future of web development</Typography>
+      <Typography className={classes.announcement} id="announcement">IO Silver is the future of web development</Typography>
     </div>
   );
 }

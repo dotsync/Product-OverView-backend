@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Avatar, GridList, GridListTile, Grid, IconButton, Button, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -143,16 +143,16 @@ const StyleSelector = (props) => {
       styleListItemThumbnails = <GridList cols={4} cellHeight={65} className={classes.gridList}>
         {props.styles.map((tile, index) => {
           return <GridListTile selected={props.selectedStyle === props.styles[index]} key={tile.style_id}>
-            <IconButton onClick={(event) => handleAvatarClick(event, index)}>
-              <Avatar src={tile.photos[0].thumbnail_url} alt={tile.name} className={classes.avatar}/>
+            <IconButton id="avatarButton" onClick={(event) => handleAvatarClick(event, index)}>
+              <Avatar src={tile.photos[0].thumbnail_url} alt={tile.name} className={classes.avatar} />
             </IconButton>
           </GridListTile>
         })}
       </GridList>
     } else {
-      styleListItemThumbnails = <GridList cols={2} cellHeight={65}className={classes.gridlist}>{props.styles.map((tile, index) => {
+      styleListItemThumbnails = <GridList cols={2} cellHeight={65} className={classes.gridlist}>{props.styles.map((tile, index) => {
         return <GridListTile selected={props.selectedStyle === props.styles[index]} key={tile.style_id}>
-          <Button onClick={(event) => handleAvatarClick(event, index)}>
+          <Button id="imagelessAvatarButton" onClick={(event) => handleAvatarClick(event, index)}>
             <Typography key={tile.style_id}>{tile.name}</Typography>
           </Button>
         </GridListTile>
@@ -184,9 +184,9 @@ const StyleSelector = (props) => {
     <div>
       {props.selectedStyle ?
         props.selectedStyle.sale_price === "0" ?
-          <Grid container spacing={1} className={classes.grid}>
+          <Grid container spacing={1} className={classes.grid} >
             <Grid item>
-              <Typography className={classes.price}>${props.selectedStyle.original_price}</Typography>
+              <Typography className={classes.price} id="noSalePrice">${props.selectedStyle.original_price}</Typography>
             </Grid>
           </Grid>
           :
@@ -198,7 +198,7 @@ const StyleSelector = (props) => {
               <Typography className={classes.price} id="sale-price">${props.selectedStyle.sale_price}</Typography>
             </Grid>
           </Grid>
-          :
+        :
         <Typography>no styles available</Typography>}
       {props.selectedStyle ?
         <Typography className={classes.stylePointer}><b>Style {'> '}</b>{props.selectedStyle.name}</Typography>
@@ -208,33 +208,34 @@ const StyleSelector = (props) => {
         <div>{styleListItemThumbnails}</div>
         :
         <div>no thumbnails available</div>}
-      <Grid container spacing={2} className={classes.selectionButtons}>
+      <Grid container spacing={2} className={classes.selectionButtons} id="buttonsContainer">
         <Grid item xs={8} id="select-size">
           {props.selectedStyle ?
-              <Grid item xs={12} className={classes.buttonWrappers}>
-                <Button
-                  aria-controls="size-menu"
-                  aria-haspopup="true"
-                  onClick={handleSelectSizeClick}
-                  endIcon={<ArrowDropDownIcon />}
-                  className={classes.buttons}
-                  fullWidth
-                  >
+            <Grid item xs={12} className={classes.buttonWrappers}>
+              <Button
+                id='selectSize'
+                aria-controls="size-menu"
+                aria-haspopup="true"
+                onClick={handleSelectSizeClick}
+                endIcon={<ArrowDropDownIcon />}
+                className={classes.buttons}
+                fullWidth
+              >
                 {selectedSizeIndex || selectedSizeIndex === 0 ?
                   <span>Size: {styleSkus[selectedSizeIndex].props.children}</span> :
                   <span>Select Size</span>}
-                </Button>
-                <Menu
+              </Button>
+              <Menu
                 id="size-menu"
                 anchorEl={anchorSizeEl}
                 keepMounted
                 open={Boolean(anchorSizeEl)}
                 onClose={handleSizeClose}
                 getContentAnchorEl={null}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-                transformOrigin={{vertical: 'top', horizontal: 'center'}}
-                >{styleSkus}</Menu>
-              </Grid>
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              >{styleSkus}</Menu>
+            </Grid>
             :
             <div>no sizes to select</div>
           }
@@ -243,37 +244,39 @@ const StyleSelector = (props) => {
           {selectedSize ?
             <Grid item xs={12} className={classes.buttonWrappers}>
               <Button
-              aria-controls="quantity-menu"
-              aria-haspopup="true"
-              onClick={handleQtyButtonClick}
-              endIcon={<ArrowDropDownIcon />}
-              className={classes.buttons}
-              fullWidth
+                id='quantityButton'
+                aria-controls="quantity-menu"
+                aria-haspopup="true"
+                onClick={handleQtyButtonClick}
+                endIcon={<ArrowDropDownIcon />}
+                className={classes.buttons}
+                fullWidth
               >
-              {selectedQuantity ?
-                <span >Qty: {selectedQuantity}</span> :
-                <span>Qty</span>
-              }
+                {selectedQuantity ?
+                  <span >Qty: {selectedQuantity}</span> :
+                  <span>Qty</span>
+                }
               </Button>
               <Menu
-              id="quantity-menu"
-              anchorEl={anchorQuantityEl}
-              keepMounted
-              open={Boolean(anchorQuantityEl)}
-              onClose={handleQuantityClose}
-              getContentAnchorEl={null}
-              anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-              transformOrigin={{vertical: 'top', horizontal: 'center'}}
+                id="quantity-menu"
+                anchorEl={anchorQuantityEl}
+                keepMounted
+                open={Boolean(anchorQuantityEl)}
+                onClose={handleQuantityClose}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
               >{availableSkus}</Menu>
             </Grid>
             :
-            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>nothing</Grid>
           }
         </Grid>
         <Grid item xs={12}>
           <Grid item xs={12} className={classes.buttonWrappers}>
             <LightTooltip title={warning === '' ? '' : warning} placement="left">
               <Button
+                id="addToBagButton"
                 fullWidth
                 className={warning === '' ? '' : classes.notAllowed}
                 onClick={warning === '' ? handleAddToBagClick : handleWarningClick}
@@ -288,7 +291,7 @@ const StyleSelector = (props) => {
             </Typography>
           </Grid>
           <Grid item xs={9} className={classes.icons}>
-          <IconButton>
+            <IconButton>
               <EmailIcon />
             </IconButton>
             <IconButton>

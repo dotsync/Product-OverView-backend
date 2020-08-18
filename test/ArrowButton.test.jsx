@@ -14,6 +14,10 @@ describe('<ArrowButton />', () => {
     shallow = createShallow();
   })
 
+  it('should assert that right/left prop is required', () => {
+    expect(() => shallow(<ArrowButton />).toThrow());
+  });
+
   it('should contain a clickable arrow', () => {
     const wrapper = shallow(<ArrowButton left />);
     expect(wrapper.exists('#clickableArrow')).toBe(true);

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [productId, setProductId] = useState(1);
+  const [productId, setProductId] = useState(167);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [styles, setStyles] = useState(null);
