@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "webpack -d",
+    "build": "webpack -p",
     "build:watch": "webpack -d -w",
-    "start": "live-server ./public",
+    "start": "node ./server/index.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -26,6 +26,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
+    "express": "^4.17.1",
     "mui-image-slider": "^1.0.7",
     "randomcolor": "^0.6.2",
     "react": "^16.13.1",
