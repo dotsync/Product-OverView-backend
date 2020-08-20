@@ -22,7 +22,7 @@ const Image = (props) => {
     return <div key={currentImage} className={classes.root}>
             {src ?
                 <img className={classes.img} src={src} alt="image" id="image"/> :
-                <span id="noImage">Image source temporarily unavailable. Select another thumbnail.</span>}
+                <span id="noImage">Image source unavailable. Look left for another thumbnail to click. If no thumbnails are available, this style/product has no images. Look right for verbal descriptions of styles.</span>}
     </div>;
 };
 

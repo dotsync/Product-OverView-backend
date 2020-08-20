@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import { useParams } from "react-router-dom";
+import axios from 'axios';
+
 import Header from './Header.jsx';
 import Announcement from './Announcement.jsx';
 import Images from './Images.jsx';
@@ -9,7 +12,6 @@ import Name from './Name.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import Description from './Description.jsx';
 import Details from './Details.jsx';
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,15 +38,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const App = () => {
+const App = (props) => {
+
+  let productId;
   const classes = useStyles();
-  const [productId, setProductId] = useState(167);
+  // const [productId, setProductId] = useState(null);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [ratings, setRatings] = useState(null);
   const [styles, setStyles] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
 
   useEffect(() => {
+    if (props.productId) {
+      productId = props.productId;
+    } else {
+      productId = 1;
+    }
+
     Promise.all([
       axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
       axios.get(`http://52.26.193.201:3000/products/${productId}`),
@@ -56,7 +66,7 @@ const App = () => {
       setStyles(resStyles.data.results);
     })
     .catch((err) => {console.log("axios get error: ", err)});
-  }, [])
+  }, [productId])
 
   return (
     <Grid container className={classes.grid}>
