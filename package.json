@@ -8,7 +8,7 @@
     "build": "webpack -p",
     "build:watch": "webpack -d -w",
     "start": "node server.js",
-    "dev-start": "live-server ./public",
+    "dev-start": "nodemon server.js",
     "lint": "eslint ."
   },
   "repository": {

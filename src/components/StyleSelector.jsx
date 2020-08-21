@@ -165,9 +165,21 @@ const StyleSelector = (props) => {
   if (props.styles && props.styles.length !== 0) {
     if (props.selectedStyle) {
       const skusArray = Object.keys(props.selectedStyle.skus).map((key) => [key, props.selectedStyle.skus[key]]);
+
       styleSkus = skusArray.map((sku, index) => {
         return <MenuItem key={index} onClick={(event) => handleSizeClick(event, index)} selected={index === selectedSizeIndex}>{sku[0]}</MenuItem>
       })
+
+      if (parseFloat(styleSkus[0].props.children)) {
+        let floats = [];
+        for(let i = 0; i < styleSkus.length; i++) {
+          floats.push(parseFloat(styleSkus[i].props.children));
+        }
+        floats.sort((a,b) => a - b);
+        styleSkus = floats.map((float, index) => {
+          return <MenuItem key={index} onClick={(event) => handleSizeClick(event, index)} selected={index === selectedSizeIndex}>{float.toString()}</MenuItem>
+        })
+      }
     }
   }
 

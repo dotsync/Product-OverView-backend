@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core';
 
 const Reviews = (props) => {
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 import Header from './Header.jsx';

@@ -9,7 +9,7 @@ const AppContainer = () => {
         <Route
           path='/products/:productId'
           render={props => {
-            const { productId } = props.match.params || {productId: undefined};
+            const { productId } = props.match.params || {productId: 1};
             return ( <App productId={productId}/>)
           }} />
       </Switch>
