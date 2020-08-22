@@ -27,11 +27,13 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
+    "compression": "^1.7.4",
     "express": "^4.17.1",
     "mui-image-slider": "^1.0.7",
     "randomcolor": "^0.6.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-jss": "^10.4.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
   },
