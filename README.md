@@ -1,6 +1,6 @@
 # product-overview
 
-This is a product overview service for the front end of an ecommerce website, designed as a contribution to a team project using service oriented architecture.
+This is a product overview service for the front end of an ecommerce website, designed as a micro-service for a service oriented architecture.
 
 To view product-overview service on its own, visit http://i-o-silver.us-west-2.elasticbeanstalk.com/products/1/
 
