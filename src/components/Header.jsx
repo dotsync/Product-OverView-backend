@@ -9,16 +9,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     height: "75px",
-    backgroundColor: "lightGreen",
+    backgroundColor: "DarkGreen",
     justifyContent: "space-between",
     paddingLeft: "20px",
     paddingRight: "20px"
   },
   title: {
     alignSelf: "center",
+    color: "white",
+    fontWeight: "bold"
   },
   search: {
     display: "flex",
+    color: "white"
   },
   searchText: {
     alignSelf: "center"
@@ -33,7 +36,7 @@ const Header = () => {
 
   return (
       <div className={classes.root}>
-        <Typography id="title" className={classes.title}>IO Silver</Typography>
+        <Typography id="title" className={classes.title}>GreenCommerce</Typography>
         <div className={classes.search}>
           <div className={classes.searchText}>
            <TextField />
