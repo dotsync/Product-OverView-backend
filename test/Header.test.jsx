@@ -9,6 +9,6 @@ configure ({ adapter: new Adapter()});
 describe('<Header />', () => {
   it('should contain the text "IO Silver"', () => {
     const wrapper = shallow(<Header />);
-    expect(wrapper.find('#title').text()).toBe("IO Silver")
+    expect(wrapper.find('#title').text()).toBe("GreenCommerce")
   });
 })
