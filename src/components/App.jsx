@@ -84,9 +84,9 @@ const App = (props) => {
     }
 
     Promise.all([
-      axios.get(`http://52.26.193.201:3000/reviews/${productId}/meta`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}`),
-      axios.get(`http://52.26.193.201:3000/products/${productId}/styles`)
+      axios.get(`reviews/${productId}/meta`),
+      axios.get(`products/${productId}`),
+      axios.get(`/products/${productId}/styles`)
   ])
     .then(([resReviews, resProduct, resStyles]) => {
       setRatings(resReviews.data.ratings);
