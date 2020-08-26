@@ -1,30 +1,45 @@
 /* eslint-disable no-console */
-const express = require('express');
+/* OBJECTIVE: Build required Routes from the API documentation
 
-const app = express();
+                                   Express              MongoDB                MongoDB Shell
+Routes                    [client] ------> [server.js] ---------> [MongoDB] ------------> [AWS]
+
+TODO MATCH ENDPOINTS and VERB between frontend and routes */
+const express = require('express');
+const bodyParser = require('body-parser');
 // const port = process.env.PORT || 5000;
 const port = 5000;
+
+const app = express();
+// MIDDLEWARE
+app.use(bodyParser.json());
+// future forms needs urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.static('public'))
 // app.use('/products/:productId', express.static('public'));
-
-// middle ware?
-
 app.use((req, res, next) => {
   console.log('Middleware');
   next();
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('hello from home(no path)');
 });
 
-/* OBJECTIVE: Build required Routes from the API documentation
+// Routes
+app.get('/reviews/:product_id/meta', (req, res) => {
+  res.send('hello from meta');
+});
 
-                                   Express              MongoDB                MongoDB Shell
-Routes                    [client] ------> [server.js] ---------> [MongoDB] ------------> [AWS]
+app.get('/products/:product_id', (req, res) => {
+  res.send('hello from product');
+});
 
-TODO MATCH ENDPOINTS and VERB between frontend and routes
+app.get('/products/:product_id/styles', (req, res) => {
+  res.send('hello from styles');
+});
 
+/*
 GUIDE:
 1. Build routes with hard-coded responses.
 Example: Client will request `GET /products/list` so that it can retrieve the list of products

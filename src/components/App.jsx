@@ -89,6 +89,7 @@ const App = (props) => {
       axios.get(`/products/${productId}/styles`)
   ])
     .then(([resReviews, resProduct, resStyles]) => {
+      console.log('hey express just spoke to me at this axios promise.all inside of app component.');
       setRatings(resReviews.data.ratings);
       setCurrentProduct(resProduct.data);
       setStyles(resStyles.data.results);
