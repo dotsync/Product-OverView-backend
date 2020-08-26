@@ -13,13 +13,30 @@ app.listen(port, () => {
 /* Build required Routes from the API documentation
                                    Express              MongoDB             MongoDB Shell
 What are the routes?      [client] ------> [server.js] ---------> [MongooseDB] ------------> [AWS]
+what do client requests look like?
+Does my express respond with hardcoded response?
+Now i need to make a database and connect to express
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 Soooooo ---> The client  will send a request for data
 Then,
-
-
 
 
 
