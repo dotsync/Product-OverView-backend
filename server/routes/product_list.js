@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/products/:product_id/styles', (req, res) => {
-  res.send('hello from styles');
+router.get('/products/list', (req, res) => {
+  res.send('hello from list');
 });
 
 module.exports = router;
