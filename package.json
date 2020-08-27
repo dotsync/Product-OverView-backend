@@ -7,8 +7,8 @@
     "test": "jest --coverage",
     "build": "webpack -p",
     "build:watch": "webpack -d -w",
-    "start": "node server.js",
-    "dev-start": "nodemon server.js",
+    "start": "node server/server.js",
+    "dev-start": "nodemon server/server.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -27,6 +27,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "mui-image-slider": "^1.0.7",

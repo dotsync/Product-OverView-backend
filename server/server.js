@@ -1,34 +1,36 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 8080;
-
-app.use(express.static('public'))
-app.use('/products/:productId', express.static('public'));
-
-app.listen(port, () => {
-    console.log(`server is listening on port ${port}`)
-})
-
+/* eslint-disable max-len */
+/* eslint-disable no-tabs */
+/* eslint-disable no-console */
 /* OBJECTIVE: Build required Routes from the API documentation
 
-                                   Express              MongoDB             MongoDB Shell
-Routes                    [client] ------> [server.js] ---------> [MongooseDB] ------------> [AWS]
+                                   Express              MongoDB                MongoDB Shell
+Routes                    [client] ------> [server.js] ---------> [MongoDB] ------------> [AWS]
 
-GUIDE:
-1. Build routes with hard-coded responses.
-Example: Client will request `GET /products/list` so that it can retrieve the list of products
-         Server will respond NOT from the DB but from hardcoded data like so:
+TODO MATCH ENDPOINTS and VERB between frontend and routes */
+const express = require('express');
+const bodyParser = require('body-parser');
+// const port = process.env.PORT || 5000;
+const port = 5000;
 
-        [
-  {
-		"id": 1,
-		"name": "Camo Onesie",
-		"slogan": "Blend in to your crowd",
-		"description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
-		"category": "Jackets",
-		"default_price": "140"
-	}
-]
-2. Copy the above guideline for all 4 routes for the future MongoDB containers.
-3. Now make a database and connect to express
+const app = express();
+/* ******************************************************* */
+// MIDDLEWARE
+app.use(bodyParser.json());
+// future forms needs urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(express.static('public'))
+// app.use('/products/:productId', express.static('public'));
+app.use((req, res, next) => {
+  console.log('Middleware');
+  next();
+});
+// END MIDDLE WARE
+/* ******************************************************* */
+// ROUTES
+
+/* Now make a database and connect to express
 (ADDITIONAL STEPS MAY BE REQUIRED) */
+
+app.listen(port, () => {
+  console.log(`server is listening on port ${port}`);
+});
