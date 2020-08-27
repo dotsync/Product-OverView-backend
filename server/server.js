@@ -29,7 +29,7 @@ app.use((error, req, res, next) => {
     return next(error);
   }
   res.status(error.code || 500);
-  // return route error message or a umbrella error
+  // return route error message or an umbrella error
   res.json({ message: error.message || 'Something strange happend' });
 });
 

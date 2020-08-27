@@ -3,6 +3,8 @@
 /* eslint-disable eqeqeq */
 const express = require('express');
 
+const HttpError = require('../models/http-error.js');
+
 const router = express.Router();
 
 const DUMMY_DATA = [{
@@ -29,9 +31,7 @@ router.get('/:product_id', (req, res, next) => {
   const productId = req.params.product_id;
   const product = DUMMY_DATA.find((p) => p.id == productId);
   if (!product) {
-    const error = new Error('Could not find product with the given id');
-    error.code = 404;
-    return next(error);
+    throw new HttpError('Could not find product with the given id');
   }
   res.json({ product });
 });
