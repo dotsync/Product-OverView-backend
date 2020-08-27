@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-tabs */
 /* eslint-disable no-console */
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -13,12 +13,12 @@ const app = express();
 
 app.use(bodyParser.json());
 // future forms needs urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
 // app.use('/products/:productId', express.static('public'));
 
-// app.use(productIdStylesRoutes)
-// app.use(productListRoutes)
+app.use('/products', productIdStylesRoutes);
+app.use('/products', productListRoutes);
 
 app.use('/products', productIdRoutes);
 
