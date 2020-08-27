@@ -19,11 +19,9 @@ app.use(bodyParser.json());
 
 // app.use(productIdStylesRoutes)
 // app.use(productListRoutes)
-app.use(productIdRoutes);
+
+app.use('/products', productIdRoutes);
 
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
 });
-
-// clean code psuedocode up
-// add routes into server.js as middle ware to keep the file lean and readabile
