@@ -22,6 +22,17 @@ app.use(bodyParser.json());
 
 app.use('/products', productIdRoutes);
 
+// err handling
+app.use((error, req, res, next) => {
+  // check if response has already been sent
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  // return route error message or an umbrella error
+  res.json({ message: error.message || 'Something strange happend' });
+});
+
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
 });

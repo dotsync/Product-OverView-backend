@@ -3,6 +3,8 @@
 /* eslint-disable eqeqeq */
 const express = require('express');
 
+const HttpError = require('../models/http-error.js');
+
 const router = express.Router();
 
 const DUMMY_DATA = [{
@@ -25,13 +27,11 @@ const DUMMY_DATA = [{
 }];
 // hardcoded id: 11
 router.get('/:product_id', (req, res, next) => {
-  console.log(req.params);
+  // console.log(req.params);
   const productId = req.params.product_id;
   const product = DUMMY_DATA.find((p) => p.id == productId);
   if (!product) {
-    return res
-      .status(404)
-      .json({ message: 'Could not find the product' });
+    throw new HttpError('Could not find product with the given id');
   }
   res.json({ product });
 });
