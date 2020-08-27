@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // app.use(express.static('public'))
 // app.use('/products/:productId', express.static('public'));
 
-// app.use(productIdStylesRoutes)
+app.use('/products ', productIdStylesRoutes);
 // app.use(productListRoutes)
 
 app.use('/products', productIdRoutes);

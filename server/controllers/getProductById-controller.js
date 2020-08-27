@@ -19,7 +19,7 @@ const DUMMY_PRODUCTS = [{
   ],
 }];
 // hardcoded id: 11
-const getProductByID = (req, res, next) => {
+const getProductById = (req, res, next) => {
   // console.log(req.params);
   const productId = Number(req.params.product_id);
   const product = DUMMY_PRODUCTS.find((p) => p.id === productId);
@@ -29,4 +29,4 @@ const getProductByID = (req, res, next) => {
   res.json({ product });
 };
 
-exports.getProductByID = getProductByID;
+exports.getProductById = getProductById;

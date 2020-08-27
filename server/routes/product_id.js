@@ -3,11 +3,11 @@
 /* eslint-disable eqeqeq */
 const express = require('express');
 
-const productsControllers = require('../controllers/products-controllers.js');
+const productsControllers = require('../controllers/getProductById-controller.js');
 
 const router = express.Router();
 
 // hardcoded id: 11
-router.get('/:product_id', productsControllers.getProductByID);
+router.get('/:product_id', productsControllers.getProductById);
 
 module.exports = router;
