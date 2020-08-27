@@ -25,13 +25,13 @@ const DUMMY_DATA = [{
 }];
 // hardcoded id: 11
 router.get('/:product_id', (req, res, next) => {
-  console.log(req.params);
+  // console.log(req.params);
   const productId = req.params.product_id;
   const product = DUMMY_DATA.find((p) => p.id == productId);
   if (!product) {
-    return res
-      .status(404)
-      .json({ message: 'Could not find the product' });
+    const error = new Error('Could not find product with the given id');
+    error.code = 404;
+    return next(error);
   }
   res.json({ product });
 });
