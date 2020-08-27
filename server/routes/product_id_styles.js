@@ -7,8 +7,6 @@ const productsControllers = require('../controllers/getProductStylesById-control
 
 const router = express.Router();
 
-// hardcoded id: 11
-// router.get('/:product_id', productsControllers.getProductStylesById);
 router.get('/:product_id/styles', productsControllers.getProductStylesById);
 
 module.exports = router;

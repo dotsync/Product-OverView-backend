@@ -80,59 +80,59 @@ const App = (props) => {
     if (props.productId) {
       productId = props.productId;
     } else {
-      productId = 1;
+      productId = 11;
     }
 
     Promise.all([
       axios.get(`reviews/${productId}/meta`),
       axios.get(`products/${productId}`),
-      axios.get(`/products/${productId}/styles`)
-  ])
-    .then(([resReviews, resProduct, resStyles]) => {
-      console.log('hey express just spoke to me at this axios promise.all inside of app component.');
-      setRatings(resReviews.data.ratings);
-      setCurrentProduct(resProduct.data);
-      setStyles(resStyles.data.results);
-    })
-    .catch((err) => {console.log("axios get error: ", err)});
-  }, [productId])
+      axios.get(`/products/${productId}/styles`),
+    ])
+      .then(([resReviews, resProduct, resStyles]) => {
+        console.log('hey express just spoke to me at this axios promise.all inside of app component.');
+        setRatings(resReviews.data.ratings);
+        setCurrentProduct(resProduct.data);
+        setStyles(resStyles.data.results);
+      })
+      .catch((err) => { console.log("axios get error: ", err) });
+  }, [productId]);
 
   return (
     // <StylesProvider generateClassName={generateClassName}>
-      <Grid container className={classes.grid}>
-        <Grid item xs={12}>
-          <Header id="header"/>
+    <Grid container className={classes.grid}>
+      <Grid item xs={12}>
+        <Header id="header" />
+      </Grid>
+      <Grid item xs={12}>
+        <Announcement id="announcement" />
+      </Grid>
+      <Grid container item xs={12} className={classes.body}>
+        <Grid item xs={7}>
+          <Images selectedStyle={selectedStyle} id="images" />
         </Grid>
-        <Grid item xs={12}>
-          <Announcement id="announcement"/>
+        <Grid container className={classes.details} item xs={4}>
+          <Grid item xs={12} className={classes.reviews}>
+            <Reviews productId={productId} ratings={ratings} id="reviews" />
+          </Grid>
+          <Grid item xs={12}>
+            <Name currentProduct={currentProduct} id="name" />
+          </Grid>
+          <Grid item xs={12}>
+            <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} id="styleSelector" />
+          </Grid>
         </Grid>
-        <Grid container item xs={12} className={classes.body}>
+        <Grid container item xs={12}>
           <Grid item xs={7}>
-            <Images selectedStyle={selectedStyle} id="images"/>
+            <div className={classes.description}>
+              <Description currentProduct={currentProduct} id="description" />
+            </div>
           </Grid>
-          <Grid container className={classes.details} item xs={4}>
-            <Grid item xs={12} className={classes.reviews}>
-              <Reviews productId={productId} ratings={ratings} id="reviews"/>
-            </Grid>
-            <Grid item xs={12}>
-              <Name currentProduct={currentProduct} id="name"/>
-            </Grid>
-            <Grid item xs={12}>
-              <StyleSelector styles={styles} currentProduct={currentProduct} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} id="styleSelector"/>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={7}>
-              <div className={classes.description}>
-                <Description currentProduct={currentProduct} id="description"/>
-              </div>
-            </Grid>
-            <Grid item xs={5}>
-              <Details currentProduct={currentProduct} id="details"/>
-            </Grid>
+          <Grid item xs={5}>
+            <Details currentProduct={currentProduct} id="details" />
           </Grid>
         </Grid>
       </Grid>
+    </Grid>
     // </StylesProvider>
   )
 }

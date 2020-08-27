@@ -1,6 +1,6 @@
 const HttpError = require('../models/http-error.js');
 
-const DUMMY_PRODUCTSTYLES = [{
+const DUMMY_STYLES = {
   product_id: '11',
   results: [
     {
@@ -49,26 +49,16 @@ const DUMMY_PRODUCTSTYLES = [{
       },
     },
   ],
-}];
+};
 
 const getProductStylesById = (req, res, next) => {
-  console.log('getProductStylesById', req.params);
-
-
-
   const productId = Number(req.params.product_id);
-
-
-
-
-
-
-  const product = DUMMY_PRODUCTSTYLES.find((p) => p.id === productId);
-  if (!product) {
+  const styles = DUMMY_STYLES.results;
+  // const product = DUMMY_STYLES.find((p) => p.id === productId);
+  if (!styles) {
     throw new HttpError('Could not find product with the given id');
   }
-  console.log('getProductStylesById', product.results);
-  res.json(product.results);
+  res.json({ styles });
 };
 
 exports.getProductStylesById = getProductStylesById;
