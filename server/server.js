@@ -4,6 +4,7 @@
 const port = process.env.PORT || 3000;
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const productListRoutes = require('./routes/product_list');
 const productIdRoutes = require('./routes/product_id');
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 // app.use('/products/:productId', express.static('public'));
+
+// app.post('/products', mongoTestServer.createProduct);
 
 app.use('/products', productIdStylesRoutes);
 app.use('/products', productListRoutes);
@@ -33,6 +36,11 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'Something strange happend' });
 });
 
-app.listen(port, () => {
-  console.log(`server is listening on port ${port}`);
-});
+mongoose
+  .connect()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`server is listening on port ${port}`);
+    });
+  })
+  .catch();
