@@ -1,72 +1,96 @@
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 /* eslint-disable no-loop-func */
 const fs = require('fs');
+const file = require('fs').createWriteStream('./products.json');
+
 const faker = require('faker');
 const Product = require('../models/product');
 
-// const stream = fs.createWriteStream('./data');
-// const append = fs.appendFileSync();
-/* 100,000 in about 30secs */
-// const start = Date.now();
-// const thou = 1000;
-// const tenMil = 10000000;
-const start = Date.now();
-console.log('Creating File now...');
-// const last = 5;
-const productBatch = (n, idprefix) => {
-  for (let i = 1; i < n + 1; i++) {
-    const createProduct = async (req) => {
-      const {
-        product_id, name, slogan, description, category, default_price,
-      } = req;
-      // create product
-      const createdProduct = new Product({
-        product_id,
-        name,
-        slogan,
-        description,
-        category,
-        default_price,
-      });
-      try {
-        const data = `${await JSON.stringify(createdProduct, null, 2)}, `;
-        fs.appendFile('products.json', data, (err) => { err });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    // create new faker dummy input each iteration
-    const DUMMYINPUT = {
-      product_id: idprefix.toString() + i.toString(),
-      name: faker.name.findName(),
-      slogan: faker.lorem.sentence(),
-      description: faker.lorem.paragraph(),
-      category: 'Jackets',
-      default_price: '140',
-    };
-    createProduct(DUMMYINPUT);
-  }
-};
+const createBatchesOfProducts = (amountPerBatch, desiredAmountOfBatches) => {
+  const globalStart = Date.now();
+  console.log(`
 
-// create product.json 10 million function
-fs.appendFile('products.json', '[', (err) => { err });
-const productFileGenerator = (n) => {
-  for (let j = 1; j < n + 1; j++) {
-    const start = Date.now();
-    productBatch(100000, j);
-    const end = Date.now();
-    const elapsed = end - start; // elapsed time in milliseconds
-    const seconds = Math.floor(elapsed / 1000);
-    console.log(`batch ${j} took ${seconds} seconds to build
+Creating File now...
+..
+`);
+
+  /* *********************DRAIN */
+
+
+  /* *********************DRAIN */
+
+
+
+  // const last = 5;
+  const productBatch = (n, idprefix) => {
+    for (let i = 1; i < n + 1; i++) {
+      const createProduct = async (req) => {
+        const {
+          product_id, name, slogan, description, category, default_price,
+        } = req;
+        // create product
+        const createdProduct = new Product({
+          product_id,
+          name,
+          slogan,
+          description,
+          category,
+          default_price,
+        });
+        try {
+          const data = `${await JSON.stringify(createdProduct, null, 2)}, `;
+          // fs.appendFile('products.json', data, (err) => { err; });
+          file.write(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      // create new faker dummy input each iteration
+      const DUMMYINPUT = {
+        product_id: idprefix.toString() + '-' + i.toString(),
+        name: faker.name.findName(),
+        slogan: faker.lorem.sentence(),
+        description: faker.lorem.paragraph(),
+        category: faker.lorem.word(),
+        default_price: faker.random.number({ 'min': 40, 'max': 350 }),
+      };
+      createProduct(DUMMYINPUT);
+    }
+  };
+
+  // create product.json 10 million function
+  // fs.appendFile('products.json', '[', (err) => { console.log(`Error while appending '[' ${err}`); });
+  file.write('[');
+
+  const productFileGenerator = (n) => {
+    for (let j = 1; j <= n; j++) {
+      const batchStart = Date.now();
+      // how many per batch?
+      productBatch(amountPerBatch, j);
+      const batchEnd = Date.now();
+      const elapsed = batchEnd - batchStart; // elapsed time in milliseconds
+      const seconds = Math.floor(elapsed / 1000);
+      console.log(`product batch ${j}(${n})took ${seconds} seconds to build
     ...`);
-  }
+    }
+  };
+  // how many batches
+  productFileGenerator(desiredAmountOfBatches);
+  // capture time
+  const globalEnd = Date.now();
+  const globalElapsed = globalEnd - globalStart; // elapsed time in milliseconds
+  const globalSeconds = Math.floor(globalElapsed / 1000);
+  console.log(`Success!
+Product file constructed!
+Took a total of ${globalSeconds} seconds.`);
+  // node --max-old-space-size=16384 createProductFile.js
+  setTimeout(() => {
+    file.write(']');
+    // fs.appendFile('products.json', ']', (err) => { console.log(`Error while appending ']' ${err}`); });
+  }, 500);
 };
-// how many batches
-productFileGenerator(100); // 500k
-const end = Date.now();
-const elapsed = end - start; // elapsed time in milliseconds
-const seconds = Math.floor(elapsed / 1000);
-console.log(`ProductFile took ${seconds} seconds.`);
-// end of file
-// fs.appendFile('products.json', ']', (err) => { err });
+// createBatchesOfProducts = (amountPerBatch, desiredAmountOfBatches)
+createBatchesOfProducts(100000, 100);
