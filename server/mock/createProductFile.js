@@ -3,7 +3,6 @@
 /* eslint-disable no-loop-func */
 const fs = require('fs');
 const faker = require('faker');
-
 const Product = require('../models/product');
 
 // const stream = fs.createWriteStream('./data');
@@ -12,14 +11,12 @@ const Product = require('../models/product');
 // const start = Date.now();
 // const thou = 1000;
 // const tenMil = 10000000;
-
-fs.appendFileSync('appdata.json', '[');
+const start = Date.now();
+console.log('Creating File now...');
 // const last = 5;
-const productBatch = (n) => {
-  const start = Date.now();
-  for (let i = 0; i < n; i++) {
+const productBatch = (n, idprefix) => {
+  for (let i = 1; i < n + 1; i++) {
     const createProduct = async (req) => {
-      console.log(i);
       const {
         product_id, name, slogan, description, category, default_price,
       } = req;
@@ -32,18 +29,16 @@ const productBatch = (n) => {
         category,
         default_price,
       });
-
       try {
         const data = `${await JSON.stringify(createdProduct, null, 2)}, `;
-        fs.appendFileSync('appdata.json', data);
+        fs.appendFile('products.json', data, (err) => { err });
       } catch (err) {
         console.log(err);
       }
     };
-
     // create new faker dummy input each iteration
     const DUMMYINPUT = {
-      product_id: i,
+      product_id: idprefix.toString() + i.toString(),
       name: faker.name.findName(),
       slogan: faker.lorem.sentence(),
       description: faker.lorem.paragraph(),
@@ -52,14 +47,26 @@ const productBatch = (n) => {
     };
     createProduct(DUMMYINPUT);
   }
-  const end = Date.now();
-  const elapsed = end - start; // elapsed time in milliseconds
-  const seconds = Math.floor(elapsed / 1000);
-  console.log(seconds, 'seconds');
 };
 
-// const end = Date.now();
-// const elapsed = end - start; // elapsed time in milliseconds
-// const seconds = Math.floor(elapsed / 1000);
-// console.log(seconds, 'seconds');
-productBatch(100);
+// create product.json 10 million function
+fs.appendFile('products.json', '[', (err) => { err });
+const productFileGenerator = (n) => {
+  for (let j = 1; j < n + 1; j++) {
+    const start = Date.now();
+    productBatch(100000, j);
+    const end = Date.now();
+    const elapsed = end - start; // elapsed time in milliseconds
+    const seconds = Math.floor(elapsed / 1000);
+    console.log(`batch ${j} took ${seconds} seconds to build
+    ...`);
+  }
+};
+// how many batches
+productFileGenerator(100); // 500k
+const end = Date.now();
+const elapsed = end - start; // elapsed time in milliseconds
+const seconds = Math.floor(elapsed / 1000);
+console.log(`ProductFile took ${seconds} seconds.`);
+// end of file
+// fs.appendFile('products.json', ']', (err) => { err });
