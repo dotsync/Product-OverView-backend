@@ -93,4 +93,4 @@ Took a total of ${globalSeconds} seconds.`);
   }, 500);
 };
 // createBatchesOfProducts = (amountPerBatch, desiredAmountOfBatches)
-createBatchesOfProducts(100000, 100);
+exports.createBatchesOfProducts = createBatchesOfProducts;
