@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const placeSchema = new Schema({
+const productSchema = new Schema({
   product_id: { type: String },
   name: { type: String, required: true },
   slogan: { type: String, required: true },
@@ -11,4 +11,4 @@ const placeSchema = new Schema({
   default_price: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Product', placeSchema);
+module.exports = mongoose.model('Product', productSchema);

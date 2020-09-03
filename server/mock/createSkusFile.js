@@ -46,9 +46,8 @@ Creating Sku file now...
       // create new faker dummy input
       const DUMMYINPUT = {
         style_id: '{ type: String },',
-        sku_id: '{ type: String },',
-        quantity: '{ type: String, required: true },',
-        size: '{ type: String, required: true },',
+        quantity: faker.random.number(100),
+        size: faker.lorem.word(2),
       };
       createSku(DUMMYINPUT);
     }
@@ -74,8 +73,5 @@ Creating Sku file now...
   console.log(`Success!
 Sku file constructed!
 Took a total of ${globalSeconds} seconds.`);
-  setTimeout(() => {
-    file.write(']');
-  }, 500);
 };
 exports.createBatchesOfSkus = createBatchesOfSkus;

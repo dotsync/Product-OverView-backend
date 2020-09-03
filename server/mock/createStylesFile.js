@@ -26,6 +26,7 @@ Creating Style file now...
 
 
   /* *********************DRAIN */
+
   const styleBatch = (n, idprefix) => {
     for (let i = 1; i < n + 1; i++) {
       const createStyle = async (req) => {
@@ -86,8 +87,8 @@ Creating Style file now...
   console.log(`Success!
 Style file constructed!
 Took a total of ${globalSeconds} seconds.`);
-  setTimeout(() => {
-    file.write(']');
-  }, 500);
+  // setTimeout(() => {
+  //   file.write(']');
+  // }, 500);
 };
 exports.createBatchesOfStyles = createBatchesOfStyles;

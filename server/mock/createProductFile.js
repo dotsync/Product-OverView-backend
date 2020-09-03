@@ -3,17 +3,16 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 /* eslint-disable no-loop-func */
-const fs = require('fs');
-const file = require('fs').createWriteStream('./products.json');
+const file = require('fs').createWriteStream('./data-files/products.json');
 
 const faker = require('faker');
-const Product = require('../models/product');
+const Product = require('../models/products');
 
 const createBatchesOfProducts = (amountPerBatch, desiredAmountOfBatches) => {
   const globalStart = Date.now();
   console.log(`
 
-Creating File now...
+Creating product file now...
 ..
 `);
 
@@ -22,9 +21,6 @@ Creating File now...
 
   /* *********************DRAIN */
 
-
-
-  // const last = 5;
   const productBatch = (n, idprefix) => {
     for (let i = 1; i < n + 1; i++) {
       const createProduct = async (req) => {
@@ -40,22 +36,22 @@ Creating File now...
           category,
           default_price,
         });
-        try {
-          const data = `${await JSON.stringify(createdProduct, null, 2)}, `;
-          // fs.appendFile('products.json', data, (err) => { err; });
-          file.write(data);
-        } catch (err) {
-          console.log(err);
-        }
+        // try {
+        const data = `${await JSON.stringify(createdProduct, null, 2)}, `;
+        // fs.appendFile('products.json', data, (err) => { err; });
+        file.write(data);
+        // } catch (err) {
+        //   console.log(err);
+        // }
       };
       // create new faker dummy input each iteration
       const DUMMYINPUT = {
-        product_id: idprefix.toString() + '-' + i.toString(),
-        name: faker.name.findName(),
+        product_id: `${idprefix.toString()}-${i.toString()}`,
+        name: faker.lorem.word(),
         slogan: faker.lorem.sentence(),
         description: faker.lorem.paragraph(),
         category: faker.lorem.word(),
-        default_price: faker.random.number({ 'min': 40, 'max': 350 }),
+        default_price: faker.random.number({ min: 40, max: 350 }),
       };
       createProduct(DUMMYINPUT);
     }
@@ -73,12 +69,12 @@ Creating File now...
       const batchEnd = Date.now();
       const elapsed = batchEnd - batchStart; // elapsed time in milliseconds
       const seconds = Math.floor(elapsed / 1000);
-      console.log(`product batch ${j}(${n})took ${seconds} seconds to build
-    ...`);
+      console.log(`product batch ${j}(${n})took ${seconds} seconds to build`);
     }
   };
   // how many batches
   productFileGenerator(desiredAmountOfBatches);
+
   // capture time
   const globalEnd = Date.now();
   const globalElapsed = globalEnd - globalStart; // elapsed time in milliseconds

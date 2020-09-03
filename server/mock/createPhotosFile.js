@@ -37,7 +37,7 @@ Creating Photos file now...
           url,
         });
         try {
-          const data = `${await JSON.stringify(createdPhoto, null, 2)}, FIX THIS`;
+          const data = `${await JSON.stringify(createdPhoto, null, 2)}, `;
           file.write(data);
         } catch (err) {
           console.log(err);
@@ -45,10 +45,9 @@ Creating Photos file now...
       };
       // create new faker dummy input
       const DUMMYINPUT = {
-        style_id: { type: String },
-        photo_id: { type: String },
-        thumbnail_url: { type: String, required: true },
-        url: { type: String, required: true },
+        style_id: idprefix.toString() + '-' + i.toString(),
+        thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
+        url: 'urlplaceholder/style_1_photo_number.jpg',
       };
       createPhoto(DUMMYINPUT);
     }
@@ -74,8 +73,5 @@ Creating Photos file now...
   console.log(`Success!
 Photo file constructed!
 Took a total of ${globalSeconds} seconds.`);
-  setTimeout(() => {
-    file.write(']');
-  }, 500);
 };
 exports.createBatchesOfPhotos = createBatchesOfPhotos;

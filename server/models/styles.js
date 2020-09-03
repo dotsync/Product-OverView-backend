@@ -7,7 +7,8 @@ const styleSchema = new Schema({
   name: { type: String, required: true },
   original_price: { type: String, required: true },
   sale_price: { type: String, required: true },
-  'default?': { type: Boolean, required: true },
+  // changed default? to be def
+  def: { type: Boolean, required: true },
 });
 
 module.exports = mongoose.model('Style', styleSchema);
